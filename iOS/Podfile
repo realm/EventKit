@@ -1,0 +1,61 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+use_frameworks!
+
+pod 'EventBlankKit', path: '.'
+
+target 'EventBlank2-iOS' do
+	# rx
+    pod 'RxSwift', '3.6.1'
+    pod 'RxCocoa', '3.6.1'
+    pod 'RxFeedback', '0.2.0'
+    pod 'RxDataSources', '2.0.1'
+    pod 'RxGesture', '1.1.1'
+    pod 'RxRealm', '0.6.0'
+    pod 'RxViewController', '0.2.0'
+
+	# realm
+    pod 'RealmSwift', '2.10.0'
+    pod 'RealmContent', '0.2.2'
+
+	# visual
+    pod 'MAThemeKit', '1.0'
+    pod 'DynamicColor', '3.3'
+    pod 'NSString+Color', '1.1.4'
+
+	# views
+    pod 'XLPagerTabStrip', '7.0.0'
+    pod 'SwiftMessages', '3.4.0'
+    pod 'SwiftSpinner', '1.3.0'
+    pod 'KRWalkThrough', '0.10.2'
+
+	# network
+    pod 'SwiftyJSON', '3.1.4'
+    pod 'Reachability', '3.2'
+    pod 'Kingfisher', '3.12.1'
+
+	# etc
+    pod 'AcknowList', '1.2.1'
+    pod 'Then', '2.1.0'
+    pod 'AFDateHelper', '4.2.4'
+    pod 'RelativeFormatter', '0.8.3'
+end
+
+#
+# Test target for EventBlankKit
+#
+target 'EventBlankKit-Tests' do
+    pod 'RxSwift', '3.6.1'
+    pod 'RxCocoa', '3.6.1'
+    pod 'RxTest', '3.6.1'
+    pod 'RxBlocking', '3.6.1'
+end
+
+#
+# Connection Keys
+#
+
+plugin 'cocoapods-keys', {
+    :project => "EventBlank2-iOS",
+    :keys => [ "scheme", "host", "port", "username", "password", "path" ]
+}
