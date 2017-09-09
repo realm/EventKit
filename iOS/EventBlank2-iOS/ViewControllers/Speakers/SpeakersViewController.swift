@@ -70,8 +70,9 @@ class SpeakersViewController: UIViewController, Navigatable {
         viewModel.activate()
         active.value = true
 
-        Tutorial.showSpeakersTutorial(target:
-            self.navigationController!.navigationBar.topItem!.rightBarButtonItem!.customView!)
+        if let target = navigationController?.navigationBar.topItem?.rightBarButtonItem?.customView {
+            Tutorial.showSpeakersTutorial(target: target)
+        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

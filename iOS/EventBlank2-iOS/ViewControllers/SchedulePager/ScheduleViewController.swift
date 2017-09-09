@@ -63,8 +63,9 @@ class ScheduleViewController: ButtonBarPagerTabStripViewController, Navigatable,
         super.viewWillAppear(animated)
         configureNavigationBar()
 
-        Tutorial.showScheduleTutorial(target:
-            self.navigationController!.navigationBar.topItem!.rightBarButtonItem!.customView!)
+        if let target = navigationController?.navigationBar.topItem?.rightBarButtonItem?.customView {
+            Tutorial.showScheduleTutorial(target: target)
+        }
     }
 
     private func configBar() {
