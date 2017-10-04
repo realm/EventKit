@@ -19,7 +19,19 @@ EventBlank for iOS connects to a Realm Object Server to provide real-time update
 
 3) Make sure you have [Node.js](https://nodejs.org) installed and open a Terminal within the `server` folder of this project.
 
-Run `npm install` to install the app's dependencies and then execute the following command to setup the user rights on the server:
+Run `npm install` to install the app's dependencies.
+
+Create some test data in the event file:
+
+```
+node test-data.js 
+  --host [YOUR_HOST] --port [YOUR_PORT] 
+  --username [USERNAME] --password [PASSWORD] 
+  --delete [yes|no]
+  --amount [minimal|plenty]
+```
+
+Then execute the following command to setup the user rights on the server:
 
 ```
 node users-app.js 
@@ -56,7 +68,7 @@ This will configure the connection data to your server and install all iOS proje
 
 At that point you can open **EventBlank2-iOS.xcworkspace** in Xcode, build and run the app. If you don't have the minimum required data entered into the synchronized file the app will wait for it to be synced down before showing any UI.
 
-
+.. tbc ...
 
 ## Credits
 
