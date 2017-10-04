@@ -21,7 +21,7 @@ const uuidV1 = require('uuid/v1');
 
 const params = require('optimist')
   .usage("Usage: $0 --host [string] --port [num] --username [string] --password [string] \n\n" +
-    "  --command readonly --to [userId] : gives the user read-only access to the event realm\n"
+    "  --command readonly --to [username] : gives the user read-only access to the event realm\n"
   )
   .demand(['host', 'port', 'username', 'password', 'command'])
   .default('port', 9080)
@@ -35,13 +35,22 @@ print('Granting read permission to '+params.to);
 
 Realm.Sync.User.login('http://'+params.host+':'+params.port, params.username, params.password)
   .then((user)=>{
+      print('Logged in as '+params.username);
 
       const condition = {metadataKey: 'email', metadataValue: params.to};
       const realmUrl = 'realm://'+params.host+':'+params.port+'/'+user.identity+'/eventblank';
     
-      user.applyPermissions(condition, realmUrl, 'read')
-        .then((permission)=>{
+      print('Grant read to '+params.to+ ' file '+realmUrl);
+
+      user.applyPermissions(condition, realmUrl, 'write')
+        .then( (permission) => {
             print('permission granted on '+realmUrl);
-            process.exit();
-        });  
+            print(permission);
+            setTimeout(process.exit, 5000);
+        })
+        .catch( error => {
+          print(error);
+        });
+  }).catch( error => {
+    print(error);
   });

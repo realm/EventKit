@@ -17,7 +17,7 @@ target 'EventBlank2-iOS' do
 
 	# realm
     pod 'RealmSwift', '2.10.2'
-    pod 'RealmContent', '0.2.2'
+    pod 'RealmContent', '0.2.3'
 
 	# visual
     pod 'MAThemeKit', '1.0'

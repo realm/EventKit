@@ -30,9 +30,9 @@ const { ContentElement } = require('./entities/content-element');
 
 
 const params = require('optimist')
-  .usage("Usage: $0 --host [string] --port [num] --username [string] --password [string] --delete [yes|no]\n\n"
+  .usage("Usage: $0 --host [string] --port [num] --username [string] --password [string] --delete [yes|no] --amount [minimal|plenty]\n\n"
   )
-  .demand(['host', 'port', 'username', 'password'])
+  .demand(['host', 'port', 'username', 'password', 'amount'])
   .default('port', 9080)
   .argv;
 
@@ -69,45 +69,55 @@ function createTestData(realm, user) {
     if (params.delete == 'yes') {
       realm.deleteAll();
     }
-    var event = realm.create('EventData', {title: 'A Test Conference!', subtitle: 'Paris, France', organizer: 'Awesome Host Company', logoUrl: 'test-main-screen.jpg', _mainColor: '#152d46', timeZone: 'CET'});
+    var event = realm.create('EventData', {title: 'A Test Conference!', subtitle: 'Paris, France', organizer: 'Awesome Host Company', logoUrl: 'https://raw.githubusercontent.com/realm-demos/EventBlank/master/assets/test-main-screen.jpg', _mainColor: '#152d46', timeZone: 'CET'});
 
     var location1 = realm.create('Location', {location: 'Web Room', locationDescription: ''})
-    var location2 = realm.create('Location', {location: 'Realm Room', locationDescription: ''})
     var track1 = realm.create('Track', {track: 'iOS', trackDescription: ''});
-    var track2 = realm.create('Track', {track: 'Android', trackDescription: ''});
 
-    for (var d=0;d<3;d++) { // days
-      var dayStartTime = today.getTime() + d * 24 * hours;
+    if (params.amount == 'plenty') {
+      var location2 = realm.create('Location', {location: 'Realm Room', locationDescription: ''})
+      var track2 = realm.create('Track', {track: 'Android', trackDescription: ''});
 
-      for (var t=0;t<2;t++) { // track/location
-        var track = [track1, track2][t];
-        var location = [location1, location2][t];
+      for (var d=0;d<3;d++) { // days
+        var dayStartTime = today.getTime() + d * 24 * hours;
   
-        for (var i=0;i<6;i++) { // session/speaker
-          var speakerData = getSpeaker();
-          var speaker = realm.create('Speaker', {uuid: uuidV1({nsecs: random(10000)}), visible: true, name: speakerData.name, bio: speakerData.bio, twitter: speakerData.twitter, url: null, photoUrl: 'https://api.adorable.io/avatars/200/'+encodeURI(speakerData.name)});
-          var sessionData = getSession();
-          var session = realm.create('Session', {uuid: uuidV1({nsecs: random(10000)}), visible: true, title: sessionData.name, sessionDescription: sessionData.description, beginTime: new Date(dayStartTime + 8 + i * hours), lengthInMinutes: 45, track: track, location: location, speaker: speaker});
+        for (var t=0;t<2;t++) { // track/location
+          var track = [track1, track2][t];
+          var location = [location1, location2][t];
+    
+          for (var i=0;i<6;i++) { // session/speaker
+            var speakerData = getSpeaker();
+            var speaker = realm.create('Speaker', {uuid: uuidV1({nsecs: random(10000)}), visible: true, name: speakerData.name, bio: speakerData.bio, twitter: speakerData.twitter, url: null, photoUrl: 'https://api.adorable.io/avatars/200/'+encodeURI(speakerData.name)});
+            var sessionData = getSession();
+            var session = realm.create('Session', {uuid: uuidV1({nsecs: random(10000)}), visible: true, title: sessionData.name, sessionDescription: sessionData.description, beginTime: new Date(dayStartTime + (8 + i) * hours), lengthInMinutes: 45, track: track, location: location, speaker: speaker});
+          }
         }
       }
+    } else {
+      var speakerData = getSpeaker();
+      var speaker = realm.create('Speaker', {uuid: uuidV1({nsecs: random(10000)}), visible: true, name: speakerData.name, bio: speakerData.bio, twitter: speakerData.twitter, url: null, photoUrl: 'https://api.adorable.io/avatars/200/'+encodeURI(speakerData.name)});
+      var sessionData = getSession();
+      var session = realm.create('Session', {uuid: uuidV1({nsecs: random(10000)}), visible: true, title: sessionData.name, sessionDescription: sessionData.description, beginTime: new Date(today.getTime() + 8 * hours), lengthInMinutes: 45, track: track1, location: location1, speaker: speaker});      
     }
 
-    var about = realm.create('ContentPage', {title: 'About', priority: 100, tag: 'more', id: '', elements: [
+    var about = realm.create('ContentPage', {title: 'About', priority: 100, tag: 'more', uuid: uuidV1({nsecs: random(10000)}), elements: [
       realm.create('ContentElement', {type: 'h2', content: 'About the event', url: null}),
       realm.create('ContentElement', {type: 'h3', content: randEl("Comparative Asynchronous Programming Modern Structural Architecture Data Real-time Symbiotic Synergy".split(" "), 2), url: null}),
       realm.create('ContentElement', {type: 'p', content: lorem(10), url: null})
     ]});
 
-    var sponsors = realm.create('ContentPage', {title: 'Sponsors', priority: 10, tag: 'more', id: '', elements: [
+    if (params.amount == 'plenty') {
+      var sponsors = realm.create('ContentPage', {title: 'Sponsors', priority: 10, tag: 'more', uuid: uuidV1({nsecs: random(10000)}), elements: [
         realm.create('ContentElement', {type: 'h2', content: 'Sponsors & Partners', url: null}),
         realm.create('ContentElement', {type: 'p', content: 'Meet the sponsors that are making this event possible.', url: null}),
         realm.create('ContentElement', {type: 'h3', content: 'DIAMOND SPONSORS', url: null}),
-        realm.create('ContentElement', {type: 'img', content: '', url: 'https://realm.io'}),
+        realm.create('ContentElement', {type: 'img', content: 'https://raw.githubusercontent.com/realm-demos/EventBlank/master/assets/realm.png', url: 'https://realm.io'}),
         realm.create('ContentElement', {type: 'h3', content: 'GOLD SPONSORS', url: null}),
-        realm.create('ContentElement', {type: 'img', content: '', url: 'https://realm.io'}),
-        realm.create('ContentElement', {type: 'img', content: '', url: 'https://realm.io'})
+        realm.create('ContentElement', {type: 'img', content: 'https://raw.githubusercontent.com/realm-demos/EventBlank/master/assets/realm.png', url: 'https://realm.io'}),
+        realm.create('ContentElement', {type: 'h3', content: 'SILVER SPONSORS', url: null}),
+        realm.create('ContentElement', {type: 'img', content: 'https://raw.githubusercontent.com/realm-demos/EventBlank/master/assets/realm.png', url: 'https://realm.io'})
     ]});
-
+    }
   })
   print('Completed.');
   setTimeout(process.exit, 5000);

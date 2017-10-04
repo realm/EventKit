@@ -52,7 +52,7 @@ class Connector {
     private var syncedRealm: Realm?
 
     func connect(user: String, pass: String, completion: @escaping (Bool) -> Void) {
-        print("connecting to \(serverUrl)")
+        print("connecting to \(serverUrl) as \(user)")
 
 
         let cred = SyncCredentials.usernamePassword(username: user, password: pass, register: false)
@@ -72,6 +72,8 @@ class Connector {
             self?.user = user
             RealmProvider.event.setSyncConfiguration(
                 SyncConfiguration(user: user, realmURL: fileUrl))
+
+            print("url: \(fileUrl)");
 
             Realm.asyncOpen(configuration: RealmProvider.event.configuration, callbackQueue: DispatchQueue.main, callback: { [weak self] realm, error in
                 self?.syncedRealm = realm
