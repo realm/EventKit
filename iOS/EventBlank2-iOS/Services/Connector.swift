@@ -75,6 +75,9 @@ class Connector {
 
             Realm.asyncOpen(configuration: RealmProvider.event.configuration, callbackQueue: DispatchQueue.main, callback: { [weak self] realm, error in
                 self?.syncedRealm = realm
+                if let error = error {
+                    print("Error connecting: \(error.localizedDescription)")
+                }
                 completion(error == nil)
             })
         }

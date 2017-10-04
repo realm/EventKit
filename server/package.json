@@ -1,0 +1,22 @@
+{
+  "name": "EventBlankCli",
+  "version": "1.0.0",
+  "description": "Event Blank Cli",
+  "main": "app.js",
+  "dependencies": {
+    "realm": "latest",
+    "fs-extra": "latest",
+    "async": "latest",
+    "optimist": "latest",
+    "uuid": "latest"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "realm",
+    "events"
+  ],
+  "author": "Marin Todorov",
+  "license": "MIT"
+}
