@@ -21,7 +21,7 @@ const uuidV1 = require('uuid/v1');
 
 const params = require('optimist')
   .usage("Usage: $0 --host [string] --port [num] --username [string] --password [string] \n\n" +
-    "  --command readonly --to [username] : gives the user read-only access to the event realm\n"
+    "  --command readonly --to [user_id] : gives the user read-only access to the event realm\n"
   )
   .demand(['host', 'port', 'username', 'password', 'command'])
   .default('port', 9080)
@@ -37,7 +37,7 @@ Realm.Sync.User.login('http://'+params.host+':'+params.port, params.username, pa
   .then((user)=>{
       print('Logged in as '+params.username);
 
-      const condition = {metadataKey: 'email', metadataValue: params.to};
+      const condition = {userId: params.to};
       const realmUrl = 'realm://'+params.host+':'+params.port+'/'+user.identity+'/eventblank';
     
       print('Grant read to '+params.to+ ' file '+realmUrl);

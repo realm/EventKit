@@ -39,13 +39,17 @@ node test-data.js
   --amount [minimal|plenty]
 ```
 
-**4)** Then execute the following command to setup the user rights on the server:
+**4)** Find the user id of your read-only user to use with the next command. You can see the user id in the web server console:
+
+![](../assets/readonly-id.png)
+
+Then execute the following command to setup the user rights on the server:
 
 ```none
 node users-app.js 
   --host [YOUR_HOST] --port [YOUR_PORT] 
   --username eventblank-admin@host --password [PASSWORD] 
-  --command readonly --to eventblank@host
+  --command readonly --to [READONLY_USER_ID]
 ```
 
 Now the server and the users are all set. 

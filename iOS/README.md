@@ -6,6 +6,8 @@ This is the iOS app of the EventBlank project. For an overview of the whole proj
 
 ## Installation
 
+**Requirements:** Xcode 8.3.2, Swift 3.1, CocoaPods, Terminal
+
 ### Set up the server
 
 Before running a client app you need to setup the server. [More info here](../server/README.md).

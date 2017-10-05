@@ -72,3 +72,4 @@ server/node_modules
 server/.vscode
 server/realm-object-server
 *.lock
+package-lock.json
