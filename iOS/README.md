@@ -1,6 +1,6 @@
 # EventBlank for iOS
 
-This is the iOS app of the EventBlank project. For an overview of the whole project head to the [main readme](#).
+This is the iOS app of the EventBlank project. For an overview of the whole project head to the [main readme](../README.md).
 
 [ image ]
 
