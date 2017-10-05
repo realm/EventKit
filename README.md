@@ -4,7 +4,7 @@ A template conference app, featuring real-time schedule and data changes &amp; r
 
 The goal of this project is to enable event and conference organizers to quickly and easily build their mobile presence with the help of this project by Realm. This is in no way a service you use; it is an open source project you can build and deploy yourself.
 
-[ image ]
+![](assets/server.png)
 
 This free open-source project features several sub-projects for different platforms. All the apps you get connect to the same server and use the same data. Once you set up a local or remote server to work with do try building some of the client apps:
 
