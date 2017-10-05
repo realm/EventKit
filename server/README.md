@@ -14,7 +14,11 @@ You can run the server locally on your mac during development or in a Linux virt
 
 **Steps to set up the server**:
 
-**1)** Start the server and log into the dashboard ([detailed instructions here in the server docs](https://realm.io/docs/get-started/installation/mac)).
+**1)** Download the Developer Edition, navigate to your downloads folder and open the “realm-mobile-platform” folder.
+
+Start Realm Object Server by double-clicking the file `start-object-server.command`. This file will open a terminal window and start Realm Object Server for you.
+
+Starting the server will automatically open the Realm Dashboard (if it does not, please go to http://localhost:9080). The first time you open the console you will be asked to create an admin user.
 
 **2)** Create two users with email addresses:
 
