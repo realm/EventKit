@@ -2,60 +2,27 @@
 
 This is the iOS app of the EventBlank project. For an overview of the whole project head to the [main readme](../README.md).
 
-[ image ]
+![](../assets/app-ios.jpeg)
 
 ## Installation
 
-### Setting up a Realm Object Server
+### Set up the server
 
-EventBlank for iOS connects to a Realm Object Server to provide real-time updates to the app users. Before building the iOS project you will need to set up a server to test with. You can run it locally on your mac or in a Linux virtual box and install [Developer Edition from here for free](https://realm.io/products/realm-mobile-platform).
-
-1) Start the server and log into the dashboard ([server docs](https://realm.io/docs/get-started/installation/mac)).
-
-2) Create two users with email addresses:
-
-* `eventblank-admin@host`
-* `eventblank@host`
-
-3) Make sure you have [Node.js](https://nodejs.org) installed and open a Terminal within the `server` folder of this project.
-
-Run `npm install` to install the app's dependencies.
-
-Create some test data in the event file:
-
-```
-node test-data.js 
-  --host [YOUR_HOST] --port [YOUR_PORT] 
-  --username [USERNAME] --password [PASSWORD] 
-  --delete [yes|no]
-  --amount [minimal|plenty]
-```
-
-Then execute the following command to setup the user rights on the server:
-
-```
-node users-app.js 
-  --host [YOUR_HOST] --port [YOUR_PORT] 
-  --username [USERNAME] --password [PASSWORD] 
-  --command readonly --to [SECOND_USERNAME]
-```
-
-The script will give the second user read-only access to the shared file and print in the console something along the lines of:
-
-```
-[app] Granting read permission to seconduser@host
-[app] permission granted on realm://localhost:9080/c2edd0e813aedf8dc8ad026a243d71d1/eventblank
-```
-
-Now the server and the users are all set.
+Before running a client app you need to setup the server. [More info here](../server/README.md).
 
 ### Setting up the iOS project
 
-In the **iOS** folder of this project copy the file `example-set-keys.sh` to `keys-local.sh` and edit the new file setting the placeholder values with your own. Here's an example with a test account but you have to fill in your own data:
+In the **iOS** folder of this project copy the file `example-set-keys.sh` to `keys-local.sh` and edit the new file setting the placeholder values with your own. Here's an example:
 
 ![](../assets/config.png)
 
-From the console make the file executable (line 1) and run it (line 2):
+For a locally running server keep the scheme, host and port values the same. Change username and password to the credentials of the user with read-only access (as created during the server setup).
+
+Finally edit the `path` value by replacing the unique id in the example with the ID of the read-write user you created. You can find the ID in the server console:
+
+![](../assets/admin-id.png)
+
+Once you finish editing `keys-local.sh` open the a terminal and make the file executable (line 1) and run it (line 2):
 
 ```
 chmod +x keys-local.sh
@@ -66,9 +33,7 @@ This will configure the connection data to your server and install all iOS proje
 
 ### Running EventBlank for iOS
 
-At that point you can open **EventBlank2-iOS.xcworkspace** in Xcode, build and run the app. If you don't have the minimum required data entered into the synchronized file the app will wait for it to be synced down before showing any UI.
-
-.. tbc ...
+At that point you can open **EventBlank2-iOS.xcworkspace** in Xcode, build and run the app. If you followed the instructions correctly and created test data on the server you will see that data show up in your app.
 
 ## Credits
 

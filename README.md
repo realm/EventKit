@@ -8,7 +8,7 @@ The goal of this project is to enable event and conference organizers to quickly
 
 This free open-source project features several sub-projects for different platforms. All the apps you get connect to the same server and use the same data. Once you set up a local or remote server to work with do try building some of the client apps:
 
-[1) Setting up a Realm Object Server to use with EventBlank]()
+[1) Setting up a Realm Object Server to use with EventBlank](server/README.md)
 
 [2) EventBlank for iOS](iOS/README.md) (Swift 3.1)
 
