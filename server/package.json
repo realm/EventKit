@@ -8,6 +8,7 @@
     "fs-extra": "latest",
     "async": "latest",
     "optimist": "latest",
+    "moment": "latest",
     "uuid": "latest"
   },
   "scripts": {
