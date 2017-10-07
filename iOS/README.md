@@ -37,6 +37,11 @@ This will configure the connection data to your server and install all iOS proje
 
 At that point you can open **EventBlank2-iOS.xcworkspace** in Xcode, build and run the app. If you followed the instructions correctly and created test data on the server you will see that data show up in your app.
 
+Extra steps before publishing your app:
+
+* change the app title, bundle identifier, and team
+* add your app icons to the project assets catalogue
+
 ## Credits
 
 ### License
