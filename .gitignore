@@ -68,3 +68,7 @@ fastlane/test_output
 keys-*
 iOS/Pods
 iOS/EventBlank2-iOS.xcworkspace
+server/data
+server/node_modules
+server/realm-object-server
+package-lock.json
