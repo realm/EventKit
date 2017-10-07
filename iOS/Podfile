@@ -5,6 +5,7 @@ use_frameworks!
 pod 'EventBlankKit', path: '.'
 
 target 'EventBlank2-iOS' do
+
 	# rx
     pod 'RxSwift', '3.6.1'
     pod 'RxCocoa', '3.6.1'
@@ -15,8 +16,8 @@ target 'EventBlank2-iOS' do
     pod 'RxViewController', '0.2.0'
 
 	# realm
-    pod 'RealmSwift', '2.10.0'
-    pod 'RealmContent', '0.2.2'
+    pod 'RealmSwift', '2.10.2'
+    pod 'RealmContent', '0.2.3'
 
 	# visual
     pod 'MAThemeKit', '1.0'

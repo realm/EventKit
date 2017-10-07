@@ -71,4 +71,6 @@ iOS/EventBlank2-iOS.xcworkspace
 server/data
 server/node_modules
 server/realm-object-server
+server/.vscode
+*.lock
 package-lock.json
