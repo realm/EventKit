@@ -19,7 +19,7 @@ node website-app.js \
   --username eventblank-admin@host \
   --password password123 \
   --tokenpath ../../realm/access.base64 \
-  --admintokenpath ../../admin_token.base64
+  --admintokenpath ../../admin_token.base64 \
   --templatepath ../template/Bell \
   --outputpath ../www 
 ```
