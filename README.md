@@ -14,7 +14,7 @@ This free open-source project features several sub-projects for different platfo
 
 3) EventBlank for Android (Kotlin)
 
-4) EventBlank website (Node.js or static HTML)
+[4) EventBlank website](web/README.md) (Node.js or static HTML)
 
 ## Credits
 
