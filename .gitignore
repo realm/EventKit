@@ -74,3 +74,14 @@ server/realm-object-server
 server/.vscode
 *.lock
 package-lock.json
+web/app/node_modules
+web/app/realm-object-server
+web/www/contactform
+web/www/css
+web/www/img
+web/www/lib
+web/www/js
+web/www/scss
+index.html
+readme.txt
+style.css

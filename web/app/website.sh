@@ -1,0 +1,9 @@
+node website-app.js \
+  --host localhost \
+  --port 9080 \
+  --username eventblank-admin@host \
+  --password password \
+  --tokenpath ../../../../realm/access.txt \
+  --outputpath ../www \
+  --templatepath ../template/Bell \
+  --admintokenpath ../../../realm-mobile-platform-professional/realm-object-server/admin_token.base64 \

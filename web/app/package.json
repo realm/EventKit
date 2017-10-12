@@ -1,0 +1,24 @@
+{
+  "name": "EventBlankWeb",
+  "version": "1.0.0",
+  "description": "Event Blank webpage generator",
+  "main": "app.js",
+  "dependencies": {
+    "handlebars": "latest",
+    "moment": "latest",
+    "realm": "latest",
+    "fs-extra": "latest",
+    "async": "latest",
+    "optimist": "latest",
+    "uuid": "latest"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "realm",
+    "events"
+  ],
+  "author": "Marin Todorov",
+  "license": "MIT"
+}
