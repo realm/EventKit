@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_main"
+            android:icon="@mipmap/ic_grade_black"
+            android:title="@string/main_menu_label" />
+        <item
+            android:id="@+id/nav_schedule"
+            android:icon="@mipmap/ic_date_range_black"
+            android:title="@string/schedule_menu_label" />
+        <item
+            android:id="@+id/nav_speakers"
+            android:icon="@mipmap/ic_account_box_black"
+            android:title="@string/speakers_menu_label" />
+        <item
+            android:id="@+id/nav_info"
+            android:icon="@mipmap/ic_info_black"
+            android:title="@string/more_menu_label" />
+    </group>
+
+</menu>

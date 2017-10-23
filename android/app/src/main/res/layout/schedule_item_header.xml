@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:tools="http://schemas.android.com/tools"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/time"
+    android:padding="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="start"
+    android:textStyle="bold"
+    android:background="@color/colorPrimaryDark"
+    android:textColor="@color/white"
+    tools:text="2:00 PM"
+/>
