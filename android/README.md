@@ -37,7 +37,7 @@ Finally edit the `path` value by replacing the unique id in the example with the
 
 ### License
 
-[MIT licensed.](LICENSE)
+[MIT licensed.](../LICENSE)
 
 ### About
 
