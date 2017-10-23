@@ -35,9 +35,23 @@ Finally edit the `path` value by replacing the unique id in the example with the
 
 ## Credits
 
-### License
+### Limitations
 
-[MIT licensed.](../LICENSE)
+Event Blank is designed to be an example of the power of the Realm Platform to build a cross platform Conference application with real time capabilities.  It is hoped that this could be a great starting point for developers building a conference application or for those who just want to learn more about Realm. 
+
+Issues and limitations are described in the GitHub Issues page for this repo.
+
+ ## Contributing
+
+See [CONTRIBUTING.md](../CONTRIBUTING.md) for more details!
+
+This project adheres to the [Contributor Covenant Code of Conduct](https://realm.io/conduct/). By participating, you are expected to uphold this code. Please report unacceptable behavior to [info@realm.io](mailto:info@realm.io).
+
+## License
+
+Distributed under the Apache 2.0 license. See [LICENSE](../LICENSE) for more information.
+
+![analytics](https://ga-beacon.appspot.com/UA-50247013-2/realm-teamwork-MR/README?pixel)
 
 ### About
 
