@@ -20,7 +20,7 @@ This free open-source project features several sub-projects for different platfo
 
 ### License
 
-[MIT licensed.](LICENSE)
+Distributed under the Apache 2.0 license. See [LICENSE](../LICENSE) for more information.
 
 ### About
 
