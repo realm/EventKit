@@ -6,7 +6,7 @@ This is the iOS app of the EventBlank project. For an overview of the whole proj
 
 ## Installation
 
-**Requirements:** Android Studio 3.0 Beta 6, Terminal, Realm Platform 1.8.x
+**Requirements:** Android Studio 3.0 Beta 6, Terminal, Realm Platform
 
 **Notes:** 
 *  This project uses Kotlin and Android Architecture Components which at the time of writing this, requires Android Studio 3.0 Beta X versions.  When you clone this repository, it's likely the versions have been updated and you may have to upgrade the Kotlin version or Archtecture Components version.  This may result in the need to update the code if API's have changed.  Once Google & Jetbrains stablize these features.  They will be updated to the final versions.
