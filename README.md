@@ -12,7 +12,7 @@ This free open-source project features several sub-projects for different platfo
 
 [2) EventBlank for iOS](iOS/README.md) (Swift 3.1)
 
-3) EventBlank for Android (Kotlin)
+[3) EventBlank for Android](android/README.md) (Kotlin)
 
 [4) EventBlank website](web/README.md) (Node.js or static HTML)
 
