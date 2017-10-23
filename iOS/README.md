@@ -46,7 +46,7 @@ Extra steps before publishing your app:
 
 ### License
 
-[MIT licensed.](LICENSE)
+Distributed under the Apache 2.0 license. See [LICENSE](../LICENSE) for more information.
 
 ### About
 
