@@ -41,12 +41,6 @@ Event Blank is designed to be an example of the power of the Realm Platform to b
 
 Issues and limitations are described in the GitHub Issues page for this repo.
 
- ## Contributing
-
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for more details!
-
-This project adheres to the [Contributor Covenant Code of Conduct](https://realm.io/conduct/). By participating, you are expected to uphold this code. Please report unacceptable behavior to [info@realm.io](mailto:info@realm.io).
-
 ## License
 
 Distributed under the Apache 2.0 license. See [LICENSE](../LICENSE) for more information.
