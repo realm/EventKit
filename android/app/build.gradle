@@ -1,0 +1,123 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
+    defaultConfig {
+        applicationId "io.realm.conference"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+
+        def host = getIP()
+
+        String readOnlyEventDbUser = "eventblank@host"
+        String readOnlyEventDbPass = "password"
+        String eventDbPath = "8ec309f8cdbc42e8583d427f0ef91f81/eventblank"
+
+        debug {
+            // This will automatically detect the IP address of the machine building RealmTasks.
+            // It is assumed that this machine is also running the Object Server.
+            // If not, replace 'host' with the IP of the machine hosting the server.
+            buildConfigField "String", "ROS_HOST", "\"${host}\""
+            buildConfigField "String", "EVENT_DB_RO_USER", "\"${readOnlyEventDbUser}\""
+            buildConfigField "String", "EVENT_DB_RO_PASSWORD", "\"${readOnlyEventDbPass}\""
+            buildConfigField "String", "EVENT_DB_PATH", "\"${eventDbPath}\""
+            resValue "string", "defaultObjectServerIp", "${host}"
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            // This will automatically detect the IP address of the machine building RealmTasks.
+            // It is assumed that this machine is also running the Object Server.
+            // If not, replace 'host' with the IP of the machine hosting the server.
+            buildConfigField "String", "ROS_HOST", "\"${host}\""
+            buildConfigField "String", "EVENT_DB_RO_USER", "\"${readOnlyEventDbUser}\""
+            buildConfigField "String", "EVENT_DB_RO_PASSWORD", "\"${readOnlyEventDbPass}\""
+            buildConfigField "String", "EVENT_DB_PATH", "\"${eventDbPath}\""
+            resValue "string", "defaultObjectServerIp", "${host}"
+        }
+    }
+
+}
+
+realm {
+    syncEnabled = true
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support:cardview-v7:26.1.0'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    kapt "com.android.databinding:compiler:3.0.0-beta6"
+    implementation 'io.realm:android-adapters:2.1.0'
+
+    implementation "android.arch.lifecycle:extensions:1.0.0-beta1"
+    kapt "android.arch.lifecycle:compiler:1.0.0-beta1"
+    implementation "android.arch.lifecycle:common-java8:1.0.0-beta1"
+
+    implementation "org.jetbrains.anko:anko-commons:0.10.1"
+
+    implementation 'com.github.bumptech.glide:glide:4.2.0'
+    kapt 'com.github.bumptech.glide:compiler:4.2.0'
+
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+
+    kapt 'dk.ilios:realmfieldnameshelper:1.1.1'
+}
+
+
+static getIP() {
+    InetAddress result = null;
+    Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+    while (interfaces.hasMoreElements()) {
+        Enumeration<InetAddress> addresses = interfaces.nextElement().getInetAddresses();
+        while (addresses.hasMoreElements()) {
+            InetAddress address = addresses.nextElement();
+            if (!address.isLoopbackAddress()) {
+                if (address.isSiteLocalAddress()) {
+                    return address.getHostAddress();
+                } else if (result == null) {
+                    result = address;
+                }
+            }
+        }
+    }
+    return (result != null ? result : InetAddress.getLocalHost()).getHostAddress();
+}

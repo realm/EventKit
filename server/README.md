@@ -60,7 +60,7 @@ As the next step you can setup and run one of the client apps. More info in the 
 
 ### License
 
-[MIT licensed.](LICENSE)
+Distributed under the Apache 2.0 license. See [LICENSE](../LICENSE) for more information.
 
 ### About
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="item" type="io.realm.conference.data.entity.ContentPage" />
+        <variable name="click_listener" type="io.realm.conference.ui.common.ItemClickListener" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:background="?selectableItemBackground"
+        android:onClick="@{() ->  click_listener.onItemClicked(item)}"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{item.title}"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            tools:text="Legal" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

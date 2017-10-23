@@ -12,7 +12,7 @@ This free open-source project features several sub-projects for different platfo
 
 [2) EventBlank for iOS](iOS/README.md) (Swift 3.1)
 
-3) EventBlank for Android (Kotlin)
+[3) EventBlank for Android](android/README.md) (Kotlin)
 
 [4) EventBlank website](web/README.md) (Node.js or static HTML)
 
@@ -20,7 +20,7 @@ This free open-source project features several sub-projects for different platfo
 
 ### License
 
-[MIT licensed.](LICENSE)
+Distributed under the Apache 2.0 license. See [LICENSE](../LICENSE) for more information.
 
 ### About
 

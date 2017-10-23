@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Conference</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="speaker_pic">Speaker Pic</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="event_host_logo">Event Host Logo</string>
+    <string name="title_activity_speaker">SpeakerActivity</string>
+    <string name="speakerSampleBio">Eric is an Product Engineer at Realm. He has spent over a decade
+        architecting and developing software for various companies across different industries,
+        including healthcare, insurance, library science, and private aviation. His current focus
+        is training, mentoring, and mobile development. He has developed and taught courses on
+        Java, Android and iOS. When he’s not working, he enjoys time with family,
+        traveling and improv comedy.</string>
+    <string name="title_activity_content_detail">ContentDetailActivity</string>
+    <string name="bio_label">Bio</string>
+    <string name="contact_label">Contact</string>
+
+
+    <string name="twitterLink"><![CDATA[<a href="%1$s">%2$s</a>]]></string>
+    <string name="sessionSampleDescription">Kotlin has a lot of great features that improve developer productivity and make the overall code base more stable. This all works great when you\'re entire code base is written in Kotlin. However, while Kotlin adoption is growing by leaps and bounds, the fact is that many applications and libraries are still on Java and will be for some time. This means, if you\'re a library provider like Realm that 100k+ devlopers rely on, you must provide an API that works well for both platforms. In this talk, you\'ll learn about some of the challenges faced and approaches taken by Realm to solve this problem and how you might apply these same approaches to your own libraries. You\'ll also learn about some of the key Kotlin features they used to simplify Realm Mobile Database development with Kotlin.</string>
+    <string name="session_desc_label">Description</string>
+    <string name="session_title_label">Title</string>
+    <string name="title_activity_content_page">ContentPageActivity</string>
+    <string name="main_menu_label">Main</string>
+    <string name="schedule_menu_label">Schedule</string>
+    <string name="speakers_menu_label">Speakers</string>
+    <string name="more_menu_label">More</string>
+    <string name="favorite_icon_content_description">Favorite</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+</resources>

@@ -49,7 +49,7 @@ If you aren't interested in real-time changes you can stop the app as soon as it
 
 ### License
 
-[MIT licensed.](LICENSE)
+Distributed under the Apache 2.0 license. See [LICENSE](../LICENSE) for more information.
 
 ### About
 
