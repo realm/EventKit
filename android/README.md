@@ -44,8 +44,6 @@ Issues and limitations are described in the GitHub Issues page for this repo.
 
 Distributed under the Apache 2.0 license. See [LICENSE](../LICENSE) for more information.
 
-![analytics](https://ga-beacon.appspot.com/UA-50247013-2/realm-teamwork-MR/README?pixel)
-
 ## About
 
 <img src="../assets/realm.png" width="184" />
