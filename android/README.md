@@ -33,9 +33,8 @@ Finally edit the `path` value by replacing the unique id in the example with the
 
 ![](../assets/admin-id.png)
 
-## Credits
 
-### Limitations
+## Limitations
 
 Event Blank is designed to be an example of the power of the Realm Platform to build a cross platform Conference application with real time capabilities.  It is hoped that this could be a great starting point for developers building a conference application or for those who just want to learn more about Realm. 
 
@@ -47,7 +46,7 @@ Distributed under the Apache 2.0 license. See [LICENSE](../LICENSE) for more inf
 
 ![analytics](https://ga-beacon.appspot.com/UA-50247013-2/realm-teamwork-MR/README?pixel)
 
-### About
+## About
 
 <img src="../assets/realm.png" width="184" />
 
