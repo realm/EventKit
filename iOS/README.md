@@ -1,6 +1,6 @@
-# EventBlank for iOS
+# Realm Event Kit for iOS
 
-This is the iOS app of the EventBlank project. For an overview of the whole project head to the [main readme](../README.md).
+This is the iOS app of the Event Kit project. For an overview of the whole project head to the [main readme](../README.md).
 
 ![](../assets/app-ios.jpeg)
 
@@ -33,7 +33,7 @@ chmod +x keys-local.sh
 
 This will configure the connection data to your server and install all iOS project dependencies.
 
-### Running EventBlank for iOS
+### Running Event Kit for iOS
 
 At that point you can open **EventBlank2-iOS.xcworkspace** in Xcode, build and run the app. If you followed the instructions correctly and created test data on the server you will see that data show up in your app.
 
