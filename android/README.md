@@ -1,4 +1,4 @@
-# EventBlank for Android
+# Realm Event Kit for Android
 
 This is the iOS app of the EventBlank project. For an overview of the whole project head to the [main readme](../README.md).
 
