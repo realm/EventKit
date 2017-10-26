@@ -1,10 +1,10 @@
-# Setting up EventBlank on the server
+# Setting up Realm Event Kit on the server
 
 > This is the iOS app of the EventBlank project. For an overview of the whole project head to the [main readme](../README.md).
 
 ## Setting up a Realm Object Server
 
-All EventBlank client apps (iPhone, Android, web, etc.) connect to a Realm Object Server instance, that you run on your server, in order to provide real-time updates to the app users.
+All Realm Event Kit client apps (iPhone, Android, web, etc.) connect to a Realm Object Server instance, that you run on your server, in order to provide real-time updates to the app users.
 
 ![](../assets/server.png)
 
