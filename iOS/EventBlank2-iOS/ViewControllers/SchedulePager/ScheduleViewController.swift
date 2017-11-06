@@ -81,7 +81,8 @@ class ScheduleViewController: ButtonBarPagerTabStripViewController, Navigatable,
     private func configureNavigationBar() {
         buttonBarView.backgroundColor = .clear
         buttonBarView.removeFromSuperview()
-        buttonBarView.frame.size.width -= settings.style.buttonBarRightContentInset!
+        buttonBarView.frame.size.width =
+            navigationController!.navigationBar.frame.size.width - settings.style.buttonBarRightContentInset!
         navigationController!.navigationBar.addSubview(buttonBarView)
         navigationItem.rightBarButtonItem = btnFavorites
     }

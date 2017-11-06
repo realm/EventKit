@@ -154,7 +154,6 @@ class SessionDetailsCell: UITableViewCell, ClassIdentifier {
         }
 
         websiteLabel.text = session.speaker?.url
-        //btnToggleIsFavorite.selected = isFavoriteSession //TODO: add binding
 
         //only way to force textview autosizing I found
         descriptionTextView.text = session.sessionDescription + "\n\n"
