@@ -37,7 +37,7 @@ target 'EventBlank2-iOS' do
     pod 'Kingfisher', '4.2.0'
 
 	# etc
-    pod 'AcknowList', '1.2.1'
+    pod 'AcknowList', '1.4.0'
     pod 'Then', '2.2.1'
     pod 'AFDateHelper', '4.2.6'
     pod 'RelativeFormatter', '0.8.3'
@@ -77,7 +77,9 @@ post_install do |installer|
             next unless target.name.start_with?("Rx") ||
                 target.name.start_with?("Realm") ||
                 target.name.start_with?("Kingfisher") ||
-                target.name.start_with?("AFDateHelper")
+                target.name.start_with?("AFDateHelper") ||
+                target.name.start_with?("EventBlankKit") ||
+                target.name.start_with?("AcknowList") 
 
             config.build_settings['SWIFT_VERSION'] = '4.0'
 
