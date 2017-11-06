@@ -54,7 +54,7 @@ class ScheduleViewController: ButtonBarPagerTabStripViewController, Navigatable,
             initialState: appState,
             reduce: updateState,
             scheduler: MainScheduler.instance,
-            feedback: bindUI)
+            scheduledFeedback: bindUI)
         .subscribe()
         .disposed(by: bag)
     }
@@ -107,9 +107,8 @@ class ScheduleViewController: ButtonBarPagerTabStripViewController, Navigatable,
 
     // MARK: - Feedback
 
-    fileprivate var bindUI: ((Observable<AppState>) -> Observable<Event>) {
-
-        return UI.bind(self) { this, state in
+    fileprivate var bindUI: ((RxFeedback.ObservableSchedulerContext<AppState>) -> Observable<Event>) {
+        return RxFeedback.bind(self) { this, state in
             let subscriptions = [
                 // only favorites
                 state.map { $0.scheduleOnlyFavorites } .bind(to: this.btnFavorites.rx.isSelected),
@@ -127,7 +126,7 @@ class ScheduleViewController: ButtonBarPagerTabStripViewController, Navigatable,
                     .map { _ in Event.themeRefresh }
             ]
 
-            return UI.Bindings(subscriptions: subscriptions, events: events)
+            return RxFeedback.Bindings(subscriptions: subscriptions, events: events)
         }
     }
 

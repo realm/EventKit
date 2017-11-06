@@ -45,7 +45,7 @@ class EATabController: UITabBarController {
 
         let annResults = dataSource.asResults().filter("tag = %@", "announcement")
         let announcements = Observable<Results<ContentPage>>.collection(from: annResults)
-            .shareReplay(1)
+            .share(replay: 1)
 
         // show messages
         announcements

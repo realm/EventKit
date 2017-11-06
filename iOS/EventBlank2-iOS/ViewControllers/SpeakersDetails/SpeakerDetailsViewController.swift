@@ -34,7 +34,9 @@ class SpeakerDetailsViewController: UIViewController, ClassIdentifier, Navigatab
     private let bag = DisposeBag()
     fileprivate var viewModel: SpeakerDetailsViewModel!
     private var twitterProvider: TwitterProvider!
-    private let dataSource = RxTableViewSectionedReloadDataSource<AnySection>()
+    private lazy var dataSource = {
+        return RxTableViewSectionedReloadDataSource<AnySection>(configureCell: self.configureCell)
+    }()
 
     var navigator: Navigator!
 
@@ -62,7 +64,7 @@ class SpeakerDetailsViewController: UIViewController, ClassIdentifier, Navigatab
                 return state
             },
             scheduler: MainScheduler.instance,
-            feedback: bindUI)
+            scheduledFeedback: bindUI)
         .subscribe()
         .disposed(by: bag)
     }
@@ -78,23 +80,21 @@ class SpeakerDetailsViewController: UIViewController, ClassIdentifier, Navigatab
         tableView.rowHeight = UITableViewAutomaticDimension
     }
 
-    func configureDataSource() {
+    private func configureCell(dataSource: TableViewSectionedDataSource<AnySection>, tableView: UITableView, indexPath: IndexPath, element: Any) -> UITableViewCell {
         //the data source
-        dataSource.configureCell = { [weak self] _, tv, indexPath, item in
-            guard let this = self else { return UITableViewCell() }
-
-            switch indexPath.section {
-            case 0:
-                let cell = SpeakerDetailsCell.createWith(this.dataSource, tableView: tv, speaker: this.viewModel.speaker, twitterProvider: this.twitterProvider)
-                cell.openWebsite = { url in
-                    this.navigator.show(segue: .webPage(url), sender: self, transition: .modal)
-                }
-                return cell
-            case 1: return TweetCell.createWith(tv, tweet: item as! Tweet)
-            default: return UITableViewCell()
+        switch indexPath.section {
+        case 0:
+            let cell = SpeakerDetailsCell.createWith(dataSource, tableView: tableView, speaker: viewModel.speaker, twitterProvider: twitterProvider)
+            cell.openWebsite = { [weak self] url in
+                self?.navigator.show(segue: .webPage(url), sender: self, transition: .modal)
             }
+            return cell
+        case 1: return TweetCell.createWith(tableView, tweet: element as! Tweet)
+        default: return UITableViewCell()
         }
+    }
 
+    func configureDataSource() {
         //section headers
         dataSource.titleForHeaderInSection = { _, section in
             switch section {
@@ -120,8 +120,8 @@ class SpeakerDetailsViewController: UIViewController, ClassIdentifier, Navigatab
         }
     }
 
-    private var bindUI: ((Observable<SpeakerDetailsViewModel>) -> Observable<Event>) {
-        return UI.bind(self) { this, state in
+    private var bindUI: ((RxFeedback.ObservableSchedulerContext<SpeakerDetailsViewModel>) -> Observable<Event>) {
+        return RxFeedback.bind(self) { this, state in
 
             // twitter
             let tweets = Variable<[Tweet]?>(nil)
@@ -152,7 +152,7 @@ class SpeakerDetailsViewController: UIViewController, ClassIdentifier, Navigatab
                 this.rx.deallocating.map { Event.test }
             ]
 
-            return UI.Bindings(subscriptions: subscriptions, events: events)
+            return RxFeedback.Bindings(subscriptions: subscriptions, events: events)
         }
     }
 

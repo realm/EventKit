@@ -30,7 +30,9 @@ class SessionDetailsViewController: UIViewController, ClassIdentifier, Navigatab
 
     private let bag = DisposeBag()
     private var viewModel: SessionDetailsViewModel!
-    private let dataSource = RxTableViewSectionedReloadDataSource<SessionSection>()
+    private lazy var dataSource = {
+        return RxTableViewSectionedReloadDataSource<SessionSection>(configureCell: self.configureCell)
+    }()
 
     var navigator: Navigator!
 
@@ -59,15 +61,15 @@ class SessionDetailsViewController: UIViewController, ClassIdentifier, Navigatab
         tableView.rowHeight = UITableViewAutomaticDimension
     }
 
-    private func configureDataSource() {
-        dataSource.configureCell = { [weak self] ds, tv, indexPath, session in
-            let cell = SessionDetailsCell.createWith(ds, tableView: tv, index: indexPath, session: session)
-            cell.openWebsite = { url in
-                self?.navigator.show(segue: .webPage(url), sender: self, transition: .modal)
-            }
-            return cell
+    private func configureCell(dataSource: TableViewSectionedDataSource<SessionSection>, tableView: UITableView, indexPath: IndexPath, element: Session) -> UITableViewCell {
+        let cell = SessionDetailsCell.createWith(dataSource, tableView: tableView, index: indexPath, session: element)
+        cell.openWebsite = { [weak self] url in
+            self?.navigator.show(segue: .webPage(url), sender: self, transition: .modal)
         }
+        return cell
+    }
 
+    private func configureDataSource() {
         dataSource.titleForHeaderInSection = {_, section in nil}
         dataSource.titleForFooterInSection = {_, section in nil}
     }

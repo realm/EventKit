@@ -24,9 +24,9 @@ import RealmSwift
 class Tweet: Object {
     
     //basic properties
-    dynamic var id: Int32 = 0
-    dynamic var text = ""
-    dynamic var userId: Int32 = 0
+    @objc dynamic var id: Int32 = 0
+    @objc dynamic var text = ""
+    @objc dynamic var userId: Int32 = 0
 
     //dynamic properties
     var _created: TimeInterval = 0
@@ -66,7 +66,7 @@ class Tweet: Object {
         }
     }
     
-    dynamic var user: TwitterUser?
+    @objc dynamic var user: TwitterUser?
     
     static override func ignoredProperties() -> [String] {
         return ["created", "url", "imageUrl"]

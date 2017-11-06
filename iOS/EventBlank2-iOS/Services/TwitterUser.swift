@@ -23,11 +23,11 @@ import Kingfisher
 
 class TwitterUser: Object {
     
-    dynamic var id: Int32 = 0
-    dynamic var name = ""
-    dynamic var username = ""
+    @objc dynamic var id: Int32 = 0
+    @objc dynamic var name = ""
+    @objc dynamic var username = ""
     
-    dynamic var _avatarUrl: String?
+    @objc dynamic var _avatarUrl: String?
     
     var avatarUrl: URL? {
         set {

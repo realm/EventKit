@@ -55,7 +55,7 @@ extension SpeakersViewController: UISearchControllerDelegate, UISearchResultsUpd
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBarBtnCancel.onNext()
+        searchBarBtnCancel.onNext(())
     }
     
     func fadeInSearchBar(_ visible: Bool) {
@@ -77,7 +77,7 @@ extension SpeakersViewController: UISearchControllerDelegate, UISearchResultsUpd
         // is search bar currently active
         let searchBarActive = Observable<Bool>.merge([btnSearch.rx.tap.replaceWith(true), searchBarBtnCancel.replaceWith(false)])
             .startWith(false)
-            .shareReplay(1)
+            .share(replay: 1)
 
         return [
             //bind search bar

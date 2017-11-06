@@ -34,7 +34,7 @@ class SpeakersViewController: UIViewController, Navigatable {
 
     private let bag = DisposeBag()
     internal let viewModel = SpeakersViewModel()
-    private let dataSource = RxTableViewSectionedAnimatedDataSource<SpeakerSection>()
+    private let dataSource = RxTableViewSectionedAnimatedDataSource<SpeakerSection>(configureCell: SpeakerCell.createWith)
 
     var navigator: Navigator!
 
@@ -60,7 +60,7 @@ class SpeakersViewController: UIViewController, Navigatable {
             initialState: viewModel,
             reduce: updateModel,
             scheduler: MainScheduler.instance,
-            feedback: bindUI)
+            scheduledFeedback: bindUI)
         .subscribe()
         .disposed(by: bag)
     }
@@ -86,7 +86,6 @@ class SpeakersViewController: UIViewController, Navigatable {
     }
 
     fileprivate func configureDataSource() {
-        dataSource.configureCell = SpeakerCell.createWith
         dataSource.titleForHeaderInSection = { dataSource, sectionIndex in
             dataSource.sectionModels[sectionIndex].identity
         }
@@ -109,8 +108,8 @@ class SpeakersViewController: UIViewController, Navigatable {
         return model
     }
 
-    private var bindUI: ((Observable<SpeakersViewModel>) -> Observable<Event>) {
-        return UI.bind(self) { this, state in
+    private var bindUI: ((RxFeedback.ObservableSchedulerContext<SpeakersViewModel>) -> Observable<SpeakersViewController.Event>) {
+        return RxFeedback.bind(self) { this, state in
             let subscriptions = [
                 // speakers -> table
                 this.viewModel.speakers
@@ -144,7 +143,7 @@ class SpeakersViewController: UIViewController, Navigatable {
                     .map { _ in Event.themeRefresh }
             ]
 
-            return UI.Bindings(subscriptions: subscriptions, events: events)
+            return RxFeedback.Bindings(subscriptions: subscriptions, events: events)
         }
     }
 

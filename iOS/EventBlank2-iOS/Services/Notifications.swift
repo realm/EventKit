@@ -114,7 +114,8 @@ class Notifications {
 
         let pending = local
             .flatMap {
-                return pendingNotification(for: sessionContent).shareReplay(1)
+                return pendingNotification(for: sessionContent)
+                    .share(replay: 1)
             }
 
         if on {

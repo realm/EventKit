@@ -33,15 +33,13 @@ class MoreViewController: UIViewController, ClassIdentifier, Navigatable {
 
     private let bag = DisposeBag()
     private let viewModel = MoreViewModel()
-    private let dataSource = RxTableViewSectionedReloadDataSource<AnySection>()
+    private let dataSource = RxTableViewSectionedReloadDataSource<AnySection>(configureCell: MoreViewController.configureCell)
 
     private let footer = RealmView()
     var navigator: Navigator!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        configureDataSource()
         bindUI()
     }
 
@@ -81,23 +79,22 @@ class MoreViewController: UIViewController, ClassIdentifier, Navigatable {
         _ = tableView.rx.setDelegate(self)
     }
 
-    private func configureDataSource() {
+
+    private static func configureCell(dataSource: TableViewSectionedDataSource<AnySection>, tableView: UITableView, indexPath: IndexPath, element: Any) -> UITableViewCell {
         //the data source
-        dataSource.configureCell = {(dataSource, tableView, indexPath, element) in
-            let cell = tableView.dequeueReusableCell(withIdentifier: indexPath.section == 0 ? "MenuCell" : "ExtraMenuCell")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: indexPath.section == 0 ? "MenuCell" : "ExtraMenuCell")!
 
-            cell.imageView?.image = nil
-            cell.textLabel?.isEnabled = true
-            cell.accessoryType = .disclosureIndicator
+        cell.imageView?.image = nil
+        cell.textLabel?.isEnabled = true
+        cell.accessoryType = .disclosureIndicator
 
-            if let element = element as? ContentPage, indexPath.section == 0 {
-                cell.textLabel?.text = element.title
+        if let element = element as? ContentPage, indexPath.section == 0 {
+            cell.textLabel?.text = element.title
 
-            } else if let element = element as? String, indexPath.section == 1 {
-                cell.textLabel?.text = element
-            }
-            return cell
+        } else if let element = element as? String, indexPath.section == 1 {
+            cell.textLabel?.text = element
         }
+        return cell
     }
 }
 

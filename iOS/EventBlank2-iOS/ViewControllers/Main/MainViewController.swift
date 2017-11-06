@@ -51,7 +51,7 @@ class MainViewController: UIViewController {
             initialState: viewModel,
             reduce: updateState,
             scheduler: MainScheduler.instance,
-            feedback: bindUI)
+            scheduledFeedback: bindUI)
         .subscribe()
         .disposed(by: bag)
     }
@@ -64,9 +64,9 @@ class MainViewController: UIViewController {
         return state
     }
 
-    private var bindUI: ((Observable<MainViewModel>) -> Observable<Event>) {
-        return UI.bind(self) { this, state in
-            let eventData = this.viewModel.eventData.shareReplay(1)
+    private var bindUI: ((RxFeedback.ObservableSchedulerContext<MainViewModel>) -> Observable<Event>) {
+        return RxFeedback.bind(self) { this, state in
+            let eventData = this.viewModel.eventData.share(replay: 1)
             let subscriptions = [
                 // bind texts
                 eventData.map { $0.title }.bind(to: this.lblConfName.rx.text),
@@ -83,7 +83,7 @@ class MainViewController: UIViewController {
                 this.viewModel.timer.map { _ in Event.timer }
             ]
 
-            return UI.Bindings(subscriptions: subscriptions, events: events)
+            return RxFeedback.Bindings(subscriptions: subscriptions, events: events)
         }
     }
     
@@ -114,8 +114,8 @@ class MainViewController: UIViewController {
 }
 
 extension Reactive where Base: UIImageView {
-    public var kfUrlString: UIBindingObserver<Base, String?> {
-        return UIBindingObserver(UIElement: self.base) { imageView, urlString in
+    public var kfUrlString: Binder<String?> {
+        return Binder(base) { imageView, urlString in
             guard let urlString = urlString, let url = URL(string: urlString) else { return }
             imageView.kf.setImage(with: url)
         }
