@@ -112,12 +112,8 @@ public class SpeakersViewModel: BaseViewModel {
             return String(speaker1.name[0])
         }
 
-        guard let h1: String = String(speaker1.name[0]) else {
-            return nil
-        }
-        guard let h2: String = String(speaker2.name[0]) else {
-            return nil
-        }
+        let h1 = String(speaker1.name[0])
+        let h2 = String(speaker2.name[0])
 
         if h1 == h2 {
             return nil

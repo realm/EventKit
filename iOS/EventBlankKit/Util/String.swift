@@ -29,7 +29,7 @@ extension String {
     }
     
     subscript (r: Range<Int>) -> String {
-        return substring(with: index(startIndex, offsetBy: r.lowerBound) ..< index(startIndex, offsetBy: r.upperBound))
+        return String(self[index(startIndex, offsetBy: r.lowerBound) ..< index(startIndex, offsetBy: r.upperBound)])
     }
 }
 

@@ -25,9 +25,9 @@ public class AppState: Object {
         return provider.realm.objects(AppState.self).first!
     }
 
-    public dynamic var scheduleOnlyFavorites = false
-    public dynamic var speakersOnlyFavorites = false
-    public dynamic var bool1 = false
+    @objc public dynamic var scheduleOnlyFavorites = false
+    @objc public dynamic var speakersOnlyFavorites = false
+    @objc public dynamic var bool1 = false
     
 }
 

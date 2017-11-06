@@ -26,8 +26,8 @@ target 'EventBlank2-iOS' do
     pod 'NSString+Color', '1.1.4'
 
 	# views
-    pod 'XLPagerTabStrip', '7.0.0'
-    pod 'SwiftMessages', '3.4.0'
+    pod 'XLPagerTabStrip', '8.0.0'
+    pod 'SwiftMessages', '4.0.0'
     pod 'SwiftSpinner', '1.4.1'
     pod 'KRWalkThrough', '0.10.2'
 
@@ -74,12 +74,12 @@ post_install do |installer|
             config.build_settings['PROVISIONING_PROFILE_SPECIFIER'] = ''
 
             # Swift4 pods
-            next unless target.name.start_with?("Rx") ||
-                target.name.start_with?("Realm") ||
-                target.name.start_with?("Kingfisher") ||
-                target.name.start_with?("AFDateHelper") ||
-                target.name.start_with?("EventBlankKit") ||
-                target.name.start_with?("AcknowList") 
+#            next unless target.name.start_with?("Rx") ||
+#                target.name.start_with?("Realm") ||
+#                target.name.start_with?("Kingfisher") ||
+#                target.name.start_with?("AFDateHelper") ||
+#                target.name.start_with?("EventBlankKit") ||
+#                target.name.start_with?("AcknowList") 
 
             config.build_settings['SWIFT_VERSION'] = '4.0'
 

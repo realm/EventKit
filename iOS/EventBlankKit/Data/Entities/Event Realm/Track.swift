@@ -20,6 +20,6 @@ import Foundation
 import RealmSwift
 
 public class Track: Object {
-    public dynamic var track = ""
-    public dynamic var trackDescription = ""
+    @objc public dynamic var track = ""
+    @objc public dynamic var trackDescription = ""
 }

@@ -25,7 +25,7 @@ public class Favorites: Object {
 }
 
 public class ObjectId: Object {
-    public dynamic var id = ""
+    @objc public dynamic var id = ""
     
     public convenience init(id: String) {
         self.init()
