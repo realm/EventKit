@@ -30,7 +30,7 @@ class SpeakersViewController: UIViewController, Navigatable {
     // outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var btnSearch: UIBarButtonItem!
-    var btnFavorites = FavoritesBarButtonItem.instance()
+    let btnFavorites = FavoritesBarButtonItem.instance()
 
     private let bag = DisposeBag()
     internal let viewModel = SpeakersViewModel()
@@ -83,6 +83,7 @@ class SpeakersViewController: UIViewController, Navigatable {
         tableView.delegate = self
         tableView.tableFooterView = UIView()
         btnFavorites.button.tintColor = UIColor.white
+        navigationItem.rightBarButtonItem = btnFavorites
     }
 
     fileprivate func configureDataSource() {
@@ -130,7 +131,7 @@ class SpeakersViewController: UIViewController, Navigatable {
 
             let events = [
                 // toggle only favorites
-                this.viewModel.onlyFavorites.asObservable()
+                this.viewModel.onlyFavorites
                     .sample(this.btnFavorites.button.rx.tap)
                     .map { Event.toggleOnlyFavorites(!$0) },
 

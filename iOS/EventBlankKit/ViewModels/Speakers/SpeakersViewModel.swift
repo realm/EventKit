@@ -51,7 +51,10 @@ public class SpeakersViewModel: BaseViewModel {
     public lazy var speakers: Observable<[SpeakerSection]> = {
         return self._speakers.asObservable()
     }()
-    
+    public lazy var eventData: Observable<EventData> = {
+        return Observable.from(object: EventData.default(in: self.eventProvider))
+    }()
+
     //
     // MARK: init
     //

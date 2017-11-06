@@ -28,45 +28,37 @@ extension SpeakersViewController: UISearchControllerDelegate, UISearchResultsUpd
 
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.dimsBackgroundDuringPresentation = false
-        
-        searchController.searchBar.center = CGPoint(
-            x: navigationController!.navigationBar.frame.midX,
-            y: searchController.searchBar.frame.height/2)
     }
     
     func toggleSearchBarVisibility(_ visible: Bool) {
         if visible {
-            UIView.animate(withDuration: 0.3) {
-                var newInsets = self.tableView.contentInset
-                newInsets.top += self.searchController.searchBar.frame.height
-                self.tableView.contentInset = newInsets
-                self.tableView.addSubview(self.searchController.searchBar)
-                self.searchController.searchBar.barTintColor = .red
-            }
+            self.searchController.searchBar.alpha = 0
+            self.view.addSubview(self.searchController.searchBar)
+            self.view.layoutIfNeeded()
+            self.searchController.searchBar.center = CGPoint(
+                x: self.tableView.frame.midX,
+                y: self.searchController.searchBar.frame.height/2)
+
+            UIView.animate(withDuration: 0.5, delay: 0.15, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: [], animations: {
+                self.view.constraints
+                    .filter { $0.identifier == "tabletop" }
+                    .forEach { $0.constant = self.searchController.searchBar.frame.height }
+                self.view.layoutIfNeeded()
+                self.searchController.searchBar.alpha = 1
+            }, completion: nil)
         } else {
-            UIView.animate(withDuration: 0.3, animations: {
-                var newInsets = self.tableView.contentInset
-                newInsets.top = 0
-                self.tableView.contentInset = newInsets
-            }, completion: {_ in
-                self.searchController.searchBar.removeFromSuperview()
-            })
+            self.searchController.searchBar.removeFromSuperview()
+            UIView.animate(withDuration: 0.5, delay: 0.15, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: [], animations: {
+                self.view.constraints
+                    .filter { $0.identifier == "tabletop" }
+                    .forEach { $0.constant = 0 }
+                self.view.layoutIfNeeded()
+            }, completion: nil)
         }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBarBtnCancel.onNext(())
-    }
-    
-    func fadeInSearchBar(_ visible: Bool) {
-        let (from, to) = visible ? (0.0, 1.0) : (1.0, 0.0)
-        
-        searchController.searchBar.alpha = CGFloat(from)
-        searchController.searchBar.setNeedsDisplay()
-        
-        UIView.animate(withDuration: 0.33, delay: 0, options: [], animations: {
-            self.searchController.searchBar.alpha = CGFloat(to)
-            }, completion: nil)
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -80,6 +72,13 @@ extension SpeakersViewController: UISearchControllerDelegate, UISearchResultsUpd
             .share(replay: 1)
 
         return [
+            //search bar color
+            viewModel.eventData
+                .map { return $0.mainColor }
+                .subscribe(onNext: { [weak self] color in
+                    self?.searchController.searchBar.barTintColor = color
+                }),
+
             //bind search bar
             searchController.searchBar.rx.text.orEmpty
                 .bind(to: viewModel.searchTerm),
@@ -97,7 +96,6 @@ extension SpeakersViewController: UISearchControllerDelegate, UISearchResultsUpd
             searchBarActive
                 .subscribe(onNext: {[unowned self] hideButtons in
                     self.navigationItem.leftBarButtonItem = hideButtons ? nil : self.btnSearch
-                    self.navigationItem.rightBarButtonItem = hideButtons ? nil : self.btnFavorites
                 }),
 
             //hide keyboard
@@ -107,7 +105,6 @@ extension SpeakersViewController: UISearchControllerDelegate, UISearchResultsUpd
                 }),
 
             searchBarActive.bind(to: searchController.searchBar.rx.isFirstResponder),
-            searchBarActive.subscribe(onNext: fadeInSearchBar),
             searchBarActive.filterOut(true).replaceWith("").bind(to: viewModel.searchTerm)
         ]
     }
