@@ -48,7 +48,7 @@ class ScheduleViewController: ButtonBarPagerTabStripViewController, Navigatable,
         super.viewDidLoad()
         setupUI()
 
-        let appState = RealmProvider.app.realm.objects(AppState.self).first!
+        let appState = AppState.default(in: RealmProvider.app)
 
         Observable<Any>.system(
             initialState: appState,
@@ -81,12 +81,12 @@ class ScheduleViewController: ButtonBarPagerTabStripViewController, Navigatable,
     private func configureNavigationBar() {
         buttonBarView.backgroundColor = .clear
         buttonBarView.removeFromSuperview()
-        navigationController!.navigationBar.insertSubview(buttonBarView, at: 0)
+        buttonBarView.frame.size.width -= settings.style.buttonBarRightContentInset!
+        navigationController!.navigationBar.addSubview(buttonBarView)
         navigationItem.rightBarButtonItem = btnFavorites
     }
 
     private func setupUI() {
-        //let event = EventData.defaultEvent
         changeCurrentIndexProgressive = { (oldCell: ButtonBarViewCell?, newCell: ButtonBarViewCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) -> Void in
             guard changeCurrentIndex == true else { return }
 
@@ -107,11 +107,12 @@ class ScheduleViewController: ButtonBarPagerTabStripViewController, Navigatable,
 
     // MARK: - Feedback
 
-    fileprivate var bindUI: ((RxFeedback.ObservableSchedulerContext<AppState>) -> Observable<Event>) {
+    fileprivate var bindUI: (ObservableSchedulerContext<AppState>) -> Observable<Event> {
         return RxFeedback.bind(self) { this, state in
             let subscriptions = [
                 // only favorites
-                state.map { $0.scheduleOnlyFavorites } .bind(to: this.btnFavorites.rx.isSelected),
+                state.map { $0.scheduleOnlyFavorites }
+                    .bind(to: this.btnFavorites.rx.isSelected),
 
                 // shows/hides button bar on top
                 Observable.merge(this.rx.viewWillAppear.map {_ in false }, this.rx.viewWillDisappear.map {_ in true })
@@ -119,7 +120,8 @@ class ScheduleViewController: ButtonBarPagerTabStripViewController, Navigatable,
             ]
 
             let events = [
-                this.btnFavorites.button.rx.tap.map { _ in Event.toggleFavorites },
+                this.btnFavorites.button.rx.tap
+                    .map { _ in Event.toggleFavorites },
 
                 // theme refresh
                 Observable.from(object: EventData.default(in: RealmProvider.event), emitInitialValue: false, properties: ["_mainColor"])
