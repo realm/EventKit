@@ -108,7 +108,7 @@ class SpeakersViewController: UIViewController, Navigatable {
         return model
     }
 
-    private var bindUI: ((RxFeedback.ObservableSchedulerContext<SpeakersViewModel>) -> Observable<SpeakersViewController.Event>) {
+    private var bindUI: (ObservableSchedulerContext<SpeakersViewModel>) -> Observable<SpeakersViewController.Event> {
         return RxFeedback.bind(self) { this, state in
             let subscriptions = [
                 // speakers -> table
@@ -123,7 +123,6 @@ class SpeakersViewController: UIViewController, Navigatable {
                 this.viewModel.speakers
                     .map { sections in sections.count == 0 }
                     .distinctUntilChanged()
-                    .startWith(false)
                     .subscribe(onNext: { show in
                         ContainerMessageView.toggle(this.view, visible: show, text: "¯\\_(ツ)_/¯\n\nNo speakers found for that filter")
                     })
@@ -136,7 +135,8 @@ class SpeakersViewController: UIViewController, Navigatable {
                     .map { Event.toggleOnlyFavorites(!$0) },
 
                 // model selected
-                this.tableView.rx.modelSelected(Speaker.self).map { Event.showSpeakerDetails($0) },
+                this.tableView.rx.modelSelected(Speaker.self)
+                    .map { Event.showSpeakerDetails($0) },
 
                 // theme refresh
                 Observable.from(object: EventData.default(in: RealmProvider.event), emitInitialValue: false, properties: ["_mainColor"])

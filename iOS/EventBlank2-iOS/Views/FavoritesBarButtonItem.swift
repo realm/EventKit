@@ -62,13 +62,10 @@ class FavoritesBarButtonItem: UIBarButtonItem {
         precondition(button != nil)
         
         button.rx.tap
-            .scan(false, accumulator: { acc, _ in
-                return !acc
-            })
             .do(onNext: { [weak self] _ in
                 self?.button.animateSelect(scale: 0.8, completion: nil)
             })
-            .bind(to: button.rx.isSelected)
+            .subscribe()
             .disposed(by: bag)
     }
     

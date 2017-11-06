@@ -47,7 +47,7 @@ public class SpeakersViewModel: BaseViewModel {
     // MARK: output
     //
 
-    public let onlyFavorites = PublishSubject<Bool>()
+    public let onlyFavorites = BehaviorRelay<Bool>(value: false)
     public lazy var speakers: Observable<[SpeakerSection]> = {
         return self._speakers.asObservable()
     }()
@@ -89,7 +89,7 @@ public class SpeakersViewModel: BaseViewModel {
         // onlyFavorites -> AppState
         Observable.from(object: appState)
             .map { $0.speakersOnlyFavorites }
-            .bind(onNext: onlyFavorites.onNext)
+            .bind(onNext: onlyFavorites.accept)
             .disposed(by: bag)
     }
 

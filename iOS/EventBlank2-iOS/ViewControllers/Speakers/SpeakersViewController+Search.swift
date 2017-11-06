@@ -30,27 +30,27 @@ extension SpeakersViewController: UISearchControllerDelegate, UISearchResultsUpd
         searchController.dimsBackgroundDuringPresentation = false
         
         searchController.searchBar.center = CGPoint(
-            x: navigationController!.navigationBar.frame.midX + 4,
-            y: 20)
-        
-        //search controller is the worst
-        let iOSVersion = NSString(string: UIDevice.current.systemVersion).doubleValue
-        if iOSVersion < 9.0 {
-            //position the bar on iOS8
-            searchController.searchBar.center = CGPoint(
-                x: navigationController!.navigationBar.frame.minX + 4,
-                y: 20)
-        }
+            x: navigationController!.navigationBar.frame.midX,
+            y: searchController.searchBar.frame.height/2)
     }
     
     func toggleSearchBarVisibility(_ visible: Bool) {
         if visible {
-            navigationController!.navigationBar.addSubview(
-                searchController.searchBar
-            )
-            searchController.searchBar.barTintColor = .white
+            UIView.animate(withDuration: 0.3) {
+                var newInsets = self.tableView.contentInset
+                newInsets.top += self.searchController.searchBar.frame.height
+                self.tableView.contentInset = newInsets
+                self.tableView.addSubview(self.searchController.searchBar)
+                self.searchController.searchBar.barTintColor = .red
+            }
         } else {
-            searchController.searchBar.removeFromSuperview()
+            UIView.animate(withDuration: 0.3, animations: {
+                var newInsets = self.tableView.contentInset
+                newInsets.top = 0
+                self.tableView.contentInset = newInsets
+            }, completion: {_ in
+                self.searchController.searchBar.removeFromSuperview()
+            })
         }
     }
     
