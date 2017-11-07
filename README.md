@@ -10,7 +10,7 @@ This free open-source project features several sub-projects for different platfo
 
 [1) Setting up a Realm Object Server to use with Event Kit](server/README.md)
 
-[2) Event Kit for iOS](iOS/README.md) (Swift 3.1)
+[2) Event Kit for iOS](iOS/README.md) (Swift 4)
 
 [3) Event Kit for Android](android/README.md) (Kotlin)
 
