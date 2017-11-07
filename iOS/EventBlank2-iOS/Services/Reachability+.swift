@@ -38,7 +38,7 @@ extension Reactive where Base: Reachability {
             return Disposables.create {
                 reach.stopNotifier()
             }
-        }.shareReplay(1)
+        }.share(replay: 1)
     }
 }
 

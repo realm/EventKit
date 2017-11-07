@@ -47,11 +47,14 @@ public class SpeakersViewModel: BaseViewModel {
     // MARK: output
     //
 
-    public let onlyFavorites = PublishSubject<Bool>()
+    public let onlyFavorites = BehaviorRelay<Bool>(value: false)
     public lazy var speakers: Observable<[SpeakerSection]> = {
         return self._speakers.asObservable()
     }()
-    
+    public lazy var eventData: Observable<EventData> = {
+        return Observable.from(object: EventData.default(in: self.eventProvider))
+    }()
+
     //
     // MARK: init
     //
@@ -89,7 +92,7 @@ public class SpeakersViewModel: BaseViewModel {
         // onlyFavorites -> AppState
         Observable.from(object: appState)
             .map { $0.speakersOnlyFavorites }
-            .bind(onNext: onlyFavorites.onNext)
+            .bind(onNext: onlyFavorites.accept)
             .disposed(by: bag)
     }
 
@@ -112,12 +115,8 @@ public class SpeakersViewModel: BaseViewModel {
             return String(speaker1.name[0])
         }
 
-        guard let h1: String = String(speaker1.name[0]) else {
-            return nil
-        }
-        guard let h2: String = String(speaker2.name[0]) else {
-            return nil
-        }
+        let h1 = String(speaker1.name[0])
+        let h2 = String(speaker2.name[0])
 
         if h1 == h2 {
             return nil

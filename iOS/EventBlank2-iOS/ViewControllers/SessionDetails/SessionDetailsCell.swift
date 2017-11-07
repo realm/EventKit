@@ -66,7 +66,7 @@ class SessionDetailsCell: UITableViewCell, ClassIdentifier {
             initialState: viewModel,
             reduce: updateState,
             scheduler: MainScheduler.instance,
-            feedback: bindUI)
+            scheduledFeedback: bindUI)
         .subscribe()
         .disposed(by: reuseBag)
 
@@ -94,8 +94,8 @@ class SessionDetailsCell: UITableViewCell, ClassIdentifier {
         return state
     }
 
-    private var bindUI: ((Observable<SessionDetailsCellViewModel>) -> Observable<Event>) {
-        return UI.bind(self) { this, state in
+    private var bindUI: ((RxFeedback.ObservableSchedulerContext<SessionDetailsCellViewModel>) -> Observable<Event>) {
+        return RxFeedback.bind(self) { this, state in
             let subscriptions = [
                 // favorite button
                 this.viewModel.isFavorite
@@ -128,7 +128,7 @@ class SessionDetailsCell: UITableViewCell, ClassIdentifier {
                     .map { isFavorite in Event.setIsFavorite(!isFavorite) }
             ]
             
-            return UI.Bindings(subscriptions: subscriptions, events: events)
+            return RxFeedback.Bindings(subscriptions: subscriptions, events: events)
         }
     }
 
@@ -139,8 +139,8 @@ class SessionDetailsCell: UITableViewCell, ClassIdentifier {
 
         let time = shortStyleDateFormatter.string(from: session.date)
 
-        var textAttributes = [String: AnyObject]()
-        textAttributes[NSFontAttributeName] = UIFont.systemFont(ofSize: 22)
+        var textAttributes = [NSAttributedStringKey: Any]()
+        textAttributes[NSAttributedStringKey.font] = UIFont.systemFont(ofSize: 22)
         sessionTitleLabel.attributedText = NSAttributedString(
             string: "\(time) \(session.title)\n",
             attributes: textAttributes)
@@ -154,7 +154,6 @@ class SessionDetailsCell: UITableViewCell, ClassIdentifier {
         }
 
         websiteLabel.text = session.speaker?.url
-        //btnToggleIsFavorite.selected = isFavoriteSession //TODO: add binding
 
         //only way to force textview autosizing I found
         descriptionTextView.text = session.sessionDescription + "\n\n"

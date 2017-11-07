@@ -23,13 +23,13 @@ import DynamicColor
 
 public class EventData: Object {
 
-    public dynamic var title = ""
-    public dynamic var subtitle = ""
-    public dynamic var organizer = ""
-    public dynamic var logoUrl: String?
-    public dynamic var timeZone = "GMT"
+    @objc public dynamic var title = ""
+    @objc public dynamic var subtitle = ""
+    @objc public dynamic var organizer = ""
+    @objc public dynamic var logoUrl: String?
+    @objc public dynamic var timeZone = "GMT"
 
-    internal dynamic var _mainColor = ""
+    @objc internal dynamic var _mainColor = ""
     public var mainColor: UIColor {
         get {
             return _mainColor.representedColor() ?? UIColor.black

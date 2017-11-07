@@ -72,7 +72,7 @@ class SpeakerCell: UITableViewCell, ClassIdentifier {
             initialState: viewModel,
             reduce: updateState,
             scheduler: MainScheduler.instance,
-            feedback: bindUI)
+            scheduledFeedback: bindUI)
         .subscribe()
         .disposed(by: reuseBag)
     }
@@ -86,8 +86,8 @@ class SpeakerCell: UITableViewCell, ClassIdentifier {
         return state
     }
 
-    private var bindUI: ((Observable<SpeakerCellViewModel>) -> Observable<Event>) {
-        return UI.bind(self) { this, state in
+    private var bindUI: ((RxFeedback.ObservableSchedulerContext<SpeakerCellViewModel>) -> Observable<Event>) {
+        return RxFeedback.bind(self) { this, state in
             let subscriptions = [
                 // is session favorite
                 this.viewModel.isFavorite
@@ -101,7 +101,7 @@ class SpeakerCell: UITableViewCell, ClassIdentifier {
                     .map { isFavorite in Event.setIsFavorite(!isFavorite) }
             ]
 
-            return UI.Bindings(subscriptions: subscriptions, events: events)
+            return RxFeedback.Bindings(subscriptions: subscriptions, events: events)
         }
     }
 

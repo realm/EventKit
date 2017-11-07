@@ -30,11 +30,11 @@ class SpeakersViewController: UIViewController, Navigatable {
     // outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var btnSearch: UIBarButtonItem!
-    var btnFavorites = FavoritesBarButtonItem.instance()
+    let btnFavorites = FavoritesBarButtonItem.instance()
 
     private let bag = DisposeBag()
     internal let viewModel = SpeakersViewModel()
-    private let dataSource = RxTableViewSectionedAnimatedDataSource<SpeakerSection>()
+    private let dataSource = RxTableViewSectionedAnimatedDataSource<SpeakerSection>(configureCell: SpeakerCell.createWith)
 
     var navigator: Navigator!
 
@@ -60,7 +60,7 @@ class SpeakersViewController: UIViewController, Navigatable {
             initialState: viewModel,
             reduce: updateModel,
             scheduler: MainScheduler.instance,
-            feedback: bindUI)
+            scheduledFeedback: bindUI)
         .subscribe()
         .disposed(by: bag)
     }
@@ -83,10 +83,10 @@ class SpeakersViewController: UIViewController, Navigatable {
         tableView.delegate = self
         tableView.tableFooterView = UIView()
         btnFavorites.button.tintColor = UIColor.white
+        navigationItem.rightBarButtonItem = btnFavorites
     }
 
     fileprivate func configureDataSource() {
-        dataSource.configureCell = SpeakerCell.createWith
         dataSource.titleForHeaderInSection = { dataSource, sectionIndex in
             dataSource.sectionModels[sectionIndex].identity
         }
@@ -109,8 +109,8 @@ class SpeakersViewController: UIViewController, Navigatable {
         return model
     }
 
-    private var bindUI: ((Observable<SpeakersViewModel>) -> Observable<Event>) {
-        return UI.bind(self) { this, state in
+    private var bindUI: (ObservableSchedulerContext<SpeakersViewModel>) -> Observable<SpeakersViewController.Event> {
+        return RxFeedback.bind(self) { this, state in
             let subscriptions = [
                 // speakers -> table
                 this.viewModel.speakers
@@ -124,7 +124,6 @@ class SpeakersViewController: UIViewController, Navigatable {
                 this.viewModel.speakers
                     .map { sections in sections.count == 0 }
                     .distinctUntilChanged()
-                    .startWith(false)
                     .subscribe(onNext: { show in
                         ContainerMessageView.toggle(this.view, visible: show, text: "¯\\_(ツ)_/¯\n\nNo speakers found for that filter")
                     })
@@ -132,19 +131,20 @@ class SpeakersViewController: UIViewController, Navigatable {
 
             let events = [
                 // toggle only favorites
-                this.viewModel.onlyFavorites.asObservable()
+                this.viewModel.onlyFavorites
                     .sample(this.btnFavorites.button.rx.tap)
                     .map { Event.toggleOnlyFavorites(!$0) },
 
                 // model selected
-                this.tableView.rx.modelSelected(Speaker.self).map { Event.showSpeakerDetails($0) },
+                this.tableView.rx.modelSelected(Speaker.self)
+                    .map { Event.showSpeakerDetails($0) },
 
                 // theme refresh
                 Observable.from(object: EventData.default(in: RealmProvider.event), emitInitialValue: false, properties: ["_mainColor"])
                     .map { _ in Event.themeRefresh }
             ]
 
-            return UI.Bindings(subscriptions: subscriptions, events: events)
+            return RxFeedback.Bindings(subscriptions: subscriptions, events: events)
         }
     }
 

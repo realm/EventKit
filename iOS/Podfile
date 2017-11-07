@@ -5,19 +5,20 @@ use_frameworks!
 pod 'EventBlankKit', path: '.'
 
 target 'EventBlank2-iOS' do
-
+	platform :ios, '10.0'
+	
 	# rx
-    pod 'RxSwift', '3.6.1'
-    pod 'RxCocoa', '3.6.1'
-    pod 'RxFeedback', '0.2.0'
-    pod 'RxDataSources', '2.0.1'
-    pod 'RxGesture', '1.1.1'
-    pod 'RxRealm', '0.6.0'
-    pod 'RxViewController', '0.2.0'
+    pod 'RxSwift', '4.0.0'
+    pod 'RxCocoa', '4.0.0'
+    pod 'RxFeedback', '1.0.0'
+    pod 'RxDataSources', '3.0.1'
+    pod 'RxGesture', '1.2.1'
+    pod 'RxRealm', '0.7.4'
+    pod 'RxViewController', '0.3.0'
 
 	# realm
-    pod 'RealmSwift', '2.10.2'
-    pod 'RealmContent', '0.2.3'
+    pod 'RealmSwift', '3.0.1'
+    pod 'RealmContent', '0.2.5'
 
 	# visual
     pod 'MAThemeKit', '1.0'
@@ -25,20 +26,20 @@ target 'EventBlank2-iOS' do
     pod 'NSString+Color', '1.1.4'
 
 	# views
-    pod 'XLPagerTabStrip', '7.0.0'
-    pod 'SwiftMessages', '3.4.0'
-    pod 'SwiftSpinner', '1.3.0'
+    pod 'XLPagerTabStrip', '8.0.0'
+    pod 'SwiftMessages', '4.0.0'
+    pod 'SwiftSpinner', '1.4.1'
     pod 'KRWalkThrough', '0.10.2'
 
 	# network
     pod 'SwiftyJSON', '3.1.4'
     pod 'Reachability', '3.2'
-    pod 'Kingfisher', '3.12.1'
+    pod 'Kingfisher', '4.2.0'
 
 	# etc
-    pod 'AcknowList', '1.2.1'
-    pod 'Then', '2.1.0'
-    pod 'AFDateHelper', '4.2.4'
+    pod 'AcknowList', '1.4.0'
+    pod 'Then', '2.2.1'
+    pod 'AFDateHelper', '4.2.6'
     pod 'RelativeFormatter', '0.8.3'
 end
 
@@ -46,10 +47,12 @@ end
 # Test target for EventBlankKit
 #
 target 'EventBlankKit-Tests' do
-    pod 'RxSwift', '3.6.1'
-    pod 'RxCocoa', '3.6.1'
-    pod 'RxTest', '3.6.1'
-    pod 'RxBlocking', '3.6.1'
+	platform :ios, '10.0'
+
+    pod 'RxSwift', '4.0.0'
+    pod 'RxCocoa', '4.0.0'
+    pod 'RxTest', '4.0.0'
+    pod 'RxBlocking', '4.0.0'
 end
 
 #
@@ -60,3 +63,27 @@ plugin 'cocoapods-keys', {
     :project => "EventBlank2-iOS",
     :keys => [ "scheme", "host", "port", "username", "password", "path" ]
 }
+
+#
+# Temporary set swift version from Podfile
+#
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            # Signing
+            config.build_settings['PROVISIONING_PROFILE_SPECIFIER'] = ''
+
+            # Swift4 pods
+#            next unless target.name.start_with?("Rx") ||
+#                target.name.start_with?("Realm") ||
+#                target.name.start_with?("Kingfisher") ||
+#                target.name.start_with?("AFDateHelper") ||
+#                target.name.start_with?("EventBlankKit") ||
+#                target.name.start_with?("AcknowList") 
+
+            config.build_settings['SWIFT_VERSION'] = '4.0'
+
+        end
+    end
+end
+

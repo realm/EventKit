@@ -30,7 +30,7 @@ extension ObservableType {
 
 extension Reactive where Base: UIResponder {
     public var isFirstResponder: AnyObserver<Bool> {
-        return UIBindingObserver(UIElement: base) {control, shouldRespond in
+        return Binder(base) {control, shouldRespond in
             if shouldRespond {
                 control.becomeFirstResponder()
             } else {
@@ -92,7 +92,7 @@ extension Collection where Self.Iterator.Element: Optionable {
 
 extension Reactive where Base: UIView {
     public var visible: AnyObserver<Bool> {
-        return UIBindingObserver(UIElement: base, binding: { (view, visible) in
+        return Binder(base, binding: { (view, visible) in
             view.isHidden = !visible
         })
         .asObserver()
@@ -123,7 +123,7 @@ extension Reactive where Base: UILabel {
 
 extension Reactive where Base: CALayer {
     public var borderColor: AnyObserver<CGColor?> {
-        return UIBindingObserver(UIElement: base) { layer, color in
+        return Binder(base) { layer, color in
             self.base.borderColor = color
         }
         .asObserver()

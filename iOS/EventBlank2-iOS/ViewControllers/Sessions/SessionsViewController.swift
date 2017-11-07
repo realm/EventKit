@@ -33,7 +33,7 @@ class SessionsViewController: UIViewController, ClassIdentifier, UIScrollViewDel
     fileprivate var viewModel: SessionsViewModel!
     var navigator: Navigator!
 
-    fileprivate let dataSource = RxTableViewSectionedAnimatedDataSource<SessionSection>()
+    fileprivate let dataSource = RxTableViewSectionedAnimatedDataSource<SessionSection>(configureCell: SessionCell.createWith)
 
     fileprivate enum Event {
         case showSessionDetails(Session)
@@ -57,7 +57,7 @@ class SessionsViewController: UIViewController, ClassIdentifier, UIScrollViewDel
             initialState: viewModel,
             reduce: updateModel,
             scheduler: MainScheduler.instance,
-            feedback: bindUI)
+            scheduledFeedback: bindUI)
         .subscribe()
         .disposed(by: bag)
     }
@@ -74,7 +74,6 @@ class SessionsViewController: UIViewController, ClassIdentifier, UIScrollViewDel
     }
 
     fileprivate func configureDataSource() {
-        dataSource.configureCell = SessionCell.createWith
         dataSource.titleForHeaderInSection = { dataSource, sectionIndex in
             dataSource.sectionModels[sectionIndex].identity
         }
@@ -94,8 +93,8 @@ class SessionsViewController: UIViewController, ClassIdentifier, UIScrollViewDel
         return model
     }
 
-    private var bindUI: ((Observable<SessionsViewModel>) -> Observable<SessionsViewController.Event>) {
-        return UI.bind(self) { this, state in
+    private var bindUI: ((RxFeedback.ObservableSchedulerContext<SessionsViewModel>) -> Observable<SessionsViewController.Event>) {
+        return RxFeedback.bind(self) { this, state in
             let subscriptions = [
                 // sessions -> empty message
                 state.flatMap { $0.sessions }
@@ -122,7 +121,7 @@ class SessionsViewController: UIViewController, ClassIdentifier, UIScrollViewDel
                     .map { _ in Event.themeRefresh }
             ]
 
-            return UI.Bindings(subscriptions: subscriptions, events: events)
+            return RxFeedback.Bindings(subscriptions: subscriptions, events: events)
         }
     }
 

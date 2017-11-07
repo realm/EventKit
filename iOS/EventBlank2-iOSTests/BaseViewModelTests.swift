@@ -29,7 +29,7 @@ class BaseViewModelTests : XCTestCase {
 
         let items = model.active.asObservable()
             .subscribeOn(MainScheduler.instance)
-            .shareReplay(1)
+            .share(replay: 1)
 
         DispatchQueue.main.async {
             model.activate()
@@ -51,7 +51,7 @@ class BaseViewModelTests : XCTestCase {
 
         let items = model.active.asObservable()
             .subscribeOn(MainScheduler.instance)
-            .shareReplay(1)
+            .share(replay: 1)
 
         DispatchQueue.main.async {
             model.activate()

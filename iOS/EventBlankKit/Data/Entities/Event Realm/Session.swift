@@ -24,13 +24,13 @@ public class Session: Object {
     public static let keyBeginTime = "beginTime"
     public static let keyVisible = "visible"
 
-    public dynamic var uuid = UUID().uuidString
-    public dynamic var visible = false
+    @objc public dynamic var uuid = UUID().uuidString
+    @objc public dynamic var visible = false
 
-    public dynamic var title = ""
-    public dynamic var sessionDescription = ""
+    @objc public dynamic var title = ""
+    @objc public dynamic var sessionDescription = ""
     
-    internal dynamic var beginTime: Date?
+    @objc internal dynamic var beginTime: Date?
     public var date: Date {
         guard let beginTime = self.beginTime else {
             return Date.distantPast
@@ -38,11 +38,11 @@ public class Session: Object {
         return beginTime
     }
 
-    public dynamic var lengthInMinutes: Int = 0
+    @objc public dynamic var lengthInMinutes: Int = 0
     
-    public dynamic var track: Track?
-    public dynamic var location: Location?
-    public dynamic var speaker: Speaker?
+    @objc public dynamic var track: Track?
+    @objc public dynamic var location: Location?
+    @objc public dynamic var speaker: Speaker?
 
     override public class func primaryKey() -> String {
         return "uuid"

@@ -81,13 +81,13 @@ class SpeakerDetailsCell: UITableViewCell, ClassIdentifier {
                 return state
             },
             scheduler: MainScheduler.instance,
-            feedback: bindUI)
+            scheduledFeedback: bindUI)
         .subscribe()
         .disposed(by: reuseBag)
     }
 
-    private var bindUI: ((Observable<SpeakerDetailsCellViewModel>) -> Observable<Event>) {
-        return UI.bind(self) { this, state in
+    private var bindUI: ((RxFeedback.ObservableSchedulerContext<SpeakerDetailsCellViewModel>) -> Observable<Event>) {
+        return RxFeedback.bind(self) { this, state in
             let subscriptions = [
                 // favorite button
                 this.viewModel.isFavorite
@@ -114,7 +114,7 @@ class SpeakerDetailsCell: UITableViewCell, ClassIdentifier {
                     .map { _ in Event.openWebsite }
             ]
 
-            return UI.Bindings(subscriptions: subscriptions, events: events)
+            return RxFeedback.Bindings(subscriptions: subscriptions, events: events)
         }
     }
 

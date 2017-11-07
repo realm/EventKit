@@ -21,7 +21,7 @@ import Foundation
 extension String {
     
     subscript (i: Int) -> Character {
-        return self.characters[self.characters.index(self.startIndex, offsetBy: i)]
+        return self[self.index(self.startIndex, offsetBy: i)]
     }
     
     subscript (i: Int) -> String {
@@ -29,7 +29,7 @@ extension String {
     }
     
     subscript (r: Range<Int>) -> String {
-        return substring(with: characters.index(startIndex, offsetBy: r.lowerBound) ..< characters.index(startIndex, offsetBy: r.upperBound))
+        return String(self[index(startIndex, offsetBy: r.lowerBound) ..< index(startIndex, offsetBy: r.upperBound)])
     }
 }
 

@@ -47,7 +47,7 @@ class SessionCellViewModelTests : XCTestCase {
         let model = SessionCellViewModel(provider: testApp, with: session)
         let items = model.isFavorite.asObservable()
             .subscribeOn(MainScheduler.instance)
-            .shareReplay(1)
+            .share(replay: 1)
 
         DispatchQueue.main.async {
             model.updateIsFavorite(isFavorite: true)
@@ -68,7 +68,7 @@ class SessionCellViewModelTests : XCTestCase {
         let model = SessionCellViewModel(provider: testApp, with: session)
         let items = model.isFavoriteSpeaker.asObservable()
             .subscribeOn(MainScheduler.instance)
-            .shareReplay(1)
+            .share(replay: 1)
 
         DispatchQueue.main.async {
             let session = testEvent.realm.objects(Session.self)[0]

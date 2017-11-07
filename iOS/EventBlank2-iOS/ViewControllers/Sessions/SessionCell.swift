@@ -74,7 +74,7 @@ class SessionCell: UITableViewCell, ClassIdentifier {
             initialState: viewModel,
             reduce: updateState,
             scheduler: MainScheduler.instance,
-            feedback: bindUI)
+            scheduledFeedback: bindUI)
         .subscribe()
         .disposed(by: reuseBag)
     }
@@ -92,8 +92,8 @@ class SessionCell: UITableViewCell, ClassIdentifier {
         return state
     }
 
-    private var bindUI: ((Observable<SessionCellViewModel>) -> Observable<Event>) {
-        return UI.bind(self) { this, state in
+    private var bindUI: ((RxFeedback.ObservableSchedulerContext<SessionCellViewModel>) -> Observable<Event>) {
+        return RxFeedback.bind(self) { this, state in
             let subscriptions = [
                 // is session favorite
                 state.flatMap { $0.isFavorite }
@@ -116,7 +116,7 @@ class SessionCell: UITableViewCell, ClassIdentifier {
                     .map { isFavorite in Event.setIsFavorite(!isFavorite) }
             ]
 
-            return UI.Bindings(subscriptions: subscriptions, events: events)
+            return RxFeedback.Bindings(subscriptions: subscriptions, events: events)
         }
     }
 

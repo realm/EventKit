@@ -20,6 +20,6 @@ import Foundation
 import RealmSwift
 
 public class Location: Object {    
-    public dynamic var location = ""
-    public dynamic var locationDescription = ""
+    @objc public dynamic var location = ""
+    @objc public dynamic var locationDescription = ""
 }

@@ -97,14 +97,14 @@ class Connector {
             return
         }
 
-        token?.stop()
+        token?.invalidate()
         token = user.session(for: fileUrl)!.addProgressNotification(for: .download, mode: .reportIndefinitely) { progress in
             updateProgress(progress.fractionTransferred)
             
             if progress.isTransferComplete {
                 DispatchQueue.main.async { [weak self] in
                     if initialDataIsValid() {
-                        self?.token?.stop()
+                        self?.token?.invalidate()
                         completion()
                     }
                 }

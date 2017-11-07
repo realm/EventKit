@@ -6,7 +6,7 @@ This is the iOS app of the Event Kit project. For an overview of the whole proje
 
 ## Installation
 
-**Requirements:** Xcode 8.3.2, Swift 3.1, CocoaPods, Terminal
+**Requirements:** Xcode 9.1+, Swift 4.0+, CocoaPods, Terminal
 
 ### Set up the server
 

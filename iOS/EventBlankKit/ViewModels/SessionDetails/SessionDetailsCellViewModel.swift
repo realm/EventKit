@@ -32,7 +32,7 @@ public class SessionDetailsCellViewModel: BaseViewModel {
     public let session: Session
 
     // MARK: output
-    private let _isFavorite = PublishSubject<Bool>()
+    private let _isFavorite = BehaviorRelay<Bool>(value: false)
     public var isFavorite: Observable<Bool> {
         return self._isFavorite.asObservable()
     }
@@ -49,7 +49,7 @@ public class SessionDetailsCellViewModel: BaseViewModel {
         //is favorite
         favoritesModel.sessions
             .map { favorites in favorites.contains(uuid) }
-            .bind(to: _isFavorite)
+            .bind(onNext: _isFavorite.accept)
             .disposed(by: bag)
     }
 

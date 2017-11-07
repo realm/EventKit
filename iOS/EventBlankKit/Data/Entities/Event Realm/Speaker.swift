@@ -24,15 +24,15 @@ public class Speaker: Object {
     public static let keyName = "name"
     public static let keyVisible = "visible"
 
-    public dynamic var uuid = UUID().uuidString
-    public dynamic var visible = false
+    @objc public dynamic var uuid = UUID().uuidString
+    @objc public dynamic var visible = false
     
-    public dynamic var name = ""
-    public dynamic var bio: String?
-    public dynamic var url: String?
-    public dynamic var twitter: String?
+    @objc public dynamic var name = ""
+    @objc public dynamic var bio: String?
+    @objc public dynamic var url: String?
+    @objc public dynamic var twitter: String?
     
-    public dynamic var photoUrl: String?
+    @objc public dynamic var photoUrl: String?
     
     override public class func primaryKey() -> String {
         return "uuid"

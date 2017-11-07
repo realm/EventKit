@@ -45,7 +45,7 @@ class EATabController: UITabBarController {
 
         let annResults = dataSource.asResults().filter("tag = %@", "announcement")
         let announcements = Observable<Results<ContentPage>>.collection(from: annResults)
-            .shareReplay(1)
+            .share(replay: 1)
 
         // show messages
         announcements
@@ -92,7 +92,7 @@ class EATabController: UITabBarController {
 
         let color = EventData.default(in: RealmProvider.event).mainColor
 
-        let info = MessageView.viewFromNib(layout: .MessageView)
+        let info = MessageView.viewFromNib(layout: .messageView)
         info.configureTheme(.info)
         info.backgroundColor = color.lighter(amount: 0.25).desaturated()
         info.button?.isHidden = false
