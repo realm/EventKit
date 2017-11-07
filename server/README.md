@@ -29,9 +29,9 @@ Run Studio and use the default admin user (credentials are pre-filled) to connec
 * `eventblank-admin@host`
 * `eventblank@host`
 
-Make sure you note somewhere which username belongs to which user id. You can also add the username as a meta field to the user so that you can keep track who is who like so:
+You should see them appear in the user list like so:
 
-![](../assets/users-meta.png)
+![](../assets/users.png)
 
 **4)** Make sure you have [Node.js](https://nodejs.org) installed and open a Terminal within the `server` folder of this project.
 
@@ -47,7 +47,7 @@ node test-data.js
   --amount [minimal|plenty]
 ```
 
-**5)** Find the user id of your read-only user to use with the next command. The user id you find in the users list - it's alphanumeric id in the first column:
+**5)** Find the user id of your read-only user (eventblank@host) to use with the next command. The user id you find in the users list - it's alphanumeric id in the first column:
 
 ![](../assets/user-id.png)
 
