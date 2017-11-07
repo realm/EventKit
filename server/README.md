@@ -8,24 +8,32 @@ All Realm Event Kit client apps (iPhone, Android, web, etc.) connect to a Realm 
 
 ![](../assets/server.png)
 
-You can run the server locally on your mac during development or in a Linux virtual box and install the server [Developer Edition from here for free](https://realm.io/products/realm-mobile-platform). (You can also run the free version in production for your event.)
+You can run the server locally on your mac during development or in a Linux virtual box and install the server [Developer Edition from here for free](https://realm.io/docs/get-started/installation/developer-edition/). (You can also run the free version in production for your event.)
 
-**Requirements**: Terminal and Node.js.
+**Requirements**: Terminal, Node.js.
 
 **Steps to set up the server**:
 
-**1)** Download the Developer Edition, navigate to your downloads folder and open the “realm-mobile-platform” folder.
+**1)** Download the Developer Edition by following the [instructions here](https://realm.io/docs/get-started/installation/developer-edition/#installing-realm-object-server).
 
-Start Realm Object Server by double-clicking the file `start-object-server.command`. This file will open a terminal window and start Realm Object Server for you.
+Start Realm Object Server by running the basic demo server from your console: `ros start`. This will create some files and folders to store your realms in the current directory.
 
-Starting the server will automatically open the Realm Dashboard (if it does not, please go to http://localhost:9080). The first time you open the console you will be asked to create an admin user.
+**2)** Download and install Realm Studio
 
-**2)** Create two users with email addresses:
+To administer the server you will need to install the Realm swiss-knife - [Realm Studio](https://realm.io/docs/get-started/installation/developer-edition/#administering-realm-object-server).
+
+Run Studio and use the default admin user (credentials are pre-filled) to connect to your locally running server.
+
+**3)** Create two users with usernames:
 
 * `eventblank-admin@host`
 * `eventblank@host`
 
-**3)** Make sure you have [Node.js](https://nodejs.org) installed and open a Terminal within the `server` folder of this project.
+Make sure you note somewhere which username belongs to which user id. You can also add the username as a meta field to the user so that you can keep track who is who like so:
+
+![](../assets/users-meta.png)
+
+**4)** Make sure you have [Node.js](https://nodejs.org) installed and open a Terminal within the `server` folder of this project.
 
 Run `npm install` to install the app's dependencies.
 
@@ -39,9 +47,9 @@ node test-data.js
   --amount [minimal|plenty]
 ```
 
-**4)** Find the user id of your read-only user to use with the next command. You can see the user id in the web server console:
+**5)** Find the user id of your read-only user to use with the next command. The user id you find in the users list - it's alphanumeric id in the first column:
 
-![](../assets/readonly-id.png)
+![](../assets/user-id.png)
 
 Then execute the following command to setup the user rights on the server:
 
