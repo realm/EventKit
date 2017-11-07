@@ -45,9 +45,7 @@ class SessionDetailsCellViewModelTests : XCTestCase {
         let session = testEvent.realm.objects(Session.self)[0]
 
         let model = SessionDetailsCellViewModel(provider: testApp, session: session)
-        let items = model.isFavorite.asObservable()
-            .subscribeOn(MainScheduler.instance)
-            .shareReplay(1)
+        let items = model.isFavorite
 
         model.activate()
 
@@ -56,7 +54,7 @@ class SessionDetailsCellViewModelTests : XCTestCase {
             model.updateIsFavorite(isFavorite: false)
         }
 
-        let result = try! items.take(2).toBlocking().toArray()
+        let result = try! items.skip(1).take(2).toBlocking().toArray()
         XCTAssertEqual([true, false], result)
     }
 }

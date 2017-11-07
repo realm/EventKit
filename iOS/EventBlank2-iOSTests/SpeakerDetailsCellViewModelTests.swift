@@ -47,7 +47,7 @@ class SpeakerDetailsCellViewModelTests : XCTestCase {
         let model = SpeakerDetailsCellViewModel(provider: testApp, with: speaker)
         let items = model.isFavorite.asObservable()
             .subscribeOn(MainScheduler.instance)
-            .shareReplay(1)
+            .share(replay: 1)
 
         DispatchQueue.main.async {
             model.updateIsFavorite(isFavorite: true)

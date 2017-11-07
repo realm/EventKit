@@ -55,7 +55,7 @@ class SessionDetailsViewModelTests : XCTestCase {
         let items = model.tableItems.asObservable()
             .map { return $0[0].items[0].title }
             .subscribeOn(MainScheduler.instance)
-            .shareReplay(1)
+            .share(replay: 1)
 
         let result = try! items.toBlocking().first()!
         XCTAssertEqual("session name", result)
