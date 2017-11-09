@@ -6,7 +6,7 @@ apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "io.realm.conference"
         minSdkVersion 19
@@ -36,8 +36,8 @@ android {
         def host = getIP()
 
         String readOnlyEventDbUser = "eventblank@host"
-        String readOnlyEventDbPass = "password"
-        String eventDbPath = "8ec309f8cdbc42e8583d427f0ef91f81/eventblank"
+        String readOnlyEventDbPass = "eventblank@host"
+        String eventDbPath = "fc0af20458100699159fea96ca6edbf9/eventblank"
 
         debug {
             // This will automatically detect the IP address of the machine building RealmTasks.
@@ -85,12 +85,12 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    kapt "com.android.databinding:compiler:3.0.0-beta6"
+    kapt "com.android.databinding:compiler:3.1.0-alpha01"
     implementation 'io.realm:android-adapters:2.1.0'
 
-    implementation "android.arch.lifecycle:extensions:1.0.0-beta1"
-    kapt "android.arch.lifecycle:compiler:1.0.0-beta1"
-    implementation "android.arch.lifecycle:common-java8:1.0.0-beta1"
+    implementation "android.arch.lifecycle:extensions:1.0.0-rc1"
+    kapt "android.arch.lifecycle:compiler:1.0.0-rc1"
+    implementation "android.arch.lifecycle:common-java8:1.0.0-rc1"
 
     implementation "org.jetbrains.anko:anko-commons:0.10.1"
 

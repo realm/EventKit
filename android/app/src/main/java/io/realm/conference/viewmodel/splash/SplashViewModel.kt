@@ -36,7 +36,7 @@ class SplashViewModel : ViewModel() {
 
         val syncCredentials = SyncCredentials.usernamePassword(username, password, false)
 
-        SyncUser.loginAsync(syncCredentials, serverUrl(), object : SyncUser.Callback {
+        SyncUser.loginAsync(syncCredentials, serverUrl(), object : SyncUser.Callback<SyncUser> {
 
             override fun onSuccess(user: SyncUser) {
                 postLogin(user)
